@@ -37,7 +37,7 @@ static int dec_absolute(mos6502_t *cpu)
     M6502_Z(cpu, value == 0);
     M6502_S(cpu, value >> 7);
 
-    return 3;
+    return 6;
 }
 
 static int dec_absolute_x(mos6502_t *cpu)
