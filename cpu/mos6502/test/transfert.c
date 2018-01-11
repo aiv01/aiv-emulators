@@ -1,4 +1,5 @@
 #include "test.h"
+#include <stdio.h>
 
 static int test_txa()
 {
@@ -6,9 +7,10 @@ static int test_txa()
 
     mos6502_t cpu;
     mos6502_init(&cpu);
-    mos6502_add_test_full_mapping(&cpu, rom);
+    mos6502_add_test_full_mapping(&cpu, &rom);
 
-
+    int ticks = mos6502_tick(&cpu);
+    fprintf(stdout,"%d", ticks);
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.a, cpu.x);
 
@@ -21,8 +23,9 @@ static int test_tax()
 
     mos6502_t cpu;
     mos6502_init(&cpu);
-    mos6502_add_test_full_mapping(&cpu, rom);
+    mos6502_add_test_full_mapping(&cpu, &rom);
 
+    int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.x, cpu.a);
@@ -36,8 +39,9 @@ static int test_tya()
 
     mos6502_t cpu;
     mos6502_init(&cpu);
-    mos6502_add_test_full_mapping(&cpu, rom);
+    mos6502_add_test_full_mapping(&cpu, &rom);
 
+    int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.a, cpu.y);
@@ -51,8 +55,9 @@ static int test_tay()
 
     mos6502_t cpu;
     mos6502_init(&cpu);
-    mos6502_add_test_full_mapping(&cpu, rom);
+    mos6502_add_test_full_mapping(&cpu, &rom);
 
+    int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.y, cpu.a);
@@ -66,8 +71,9 @@ static int test_txs()
 
     mos6502_t cpu;
     mos6502_init(&cpu);
-    mos6502_add_test_full_mapping(&cpu, rom);
+    mos6502_add_test_full_mapping(&cpu, &rom);
 
+    int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.sp, cpu.x);
@@ -81,11 +87,23 @@ static int test_tsx()
 
     mos6502_t cpu;
     mos6502_init(&cpu);
-    mos6502_add_test_full_mapping(&cpu, rom);
+    mos6502_add_test_full_mapping(&cpu, &rom);
 
+    int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.x, cpu.sp);
 
+    return 0;
+}
+
+int test_all_transfert_test()
+{
+    test(test_txa);
+    test(test_tax);
+    test(test_tya);
+    test(test_tay);
+    test(test_txs);
+    test(test_tsx);
     return 0;
 }
