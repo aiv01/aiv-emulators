@@ -63,3 +63,5 @@ void mos6502_add_test_full_mapping(mos6502_t *, void *);
 
 void and_init(mos6502_t *);
 void nop_init(mos6502_t *);
+void ora_init(mos6502_t *);
+void eor_init(mos6502_t *);
