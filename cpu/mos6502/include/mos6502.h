@@ -6,12 +6,14 @@ typedef struct mos6502 {
     unsigned char sp;
     unsigned short pc;
 
-    unsigned char read8(mos6502_t*, unsigned short);
-    unsigned short read16(mos6502_t*, unsigned short);
-    void write8(mos6502_t*, unsigned short, unsigned char);
-    void write16(mos6502_t*, unsigned short, unsigned short);
+    unsigned char (*read8)(struct mos6502 *, unsigned short);
+    unsigned short (*read16)(struct mos6502 *, unsigned short);
+    void (*write8)(struct mos6502 *, unsigned short, unsigned char);
+    void (*write16)(struct mos6502 *, unsigned short, unsigned short);
 
-    int (*op_codes[256])(mos6502_t*);
+    int (*op_codes[256])(struct mos6502 *);
+
+    void *data;
 } mos6502_t;
 
 //Defines the bit sign
@@ -54,3 +56,9 @@ else\
 {\
     cpu->flags &= 0xFE;\
 }
+
+void mos6502_init(mos6502_t *);
+int mos6502_tick(mos6502_t *);
+void mos6502_add_test_full_mapping(mos6502_t *, void *);
+
+void and_init(mos6502_t *);

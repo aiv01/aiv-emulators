@@ -15,3 +15,40 @@ void mos6502_init(mos6502_t *cpu){
     memset(cpu, 0, sizeof(mos6502_t));
     and_init(cpu);
 }
+
+unsigned char mos6502_ram_read8(mos6502_t *cpu, unsigned short address)
+{
+    unsigned char *ptr = cpu->data;
+    return ptr[address];
+}
+
+unsigned short mos6502_ram_read16(mos6502_t *cpu, unsigned short address)
+{
+    unsigned short low_byte = cpu->read8(cpu, address);
+    unsigned short high_byte = cpu->read8(cpu, address + 1);
+    // invert (little endian)
+    return (high_byte << 8 | low_byte);
+}
+
+void mos6502_ram_write8(mos6502_t *cpu, unsigned short address, unsigned char value)
+{
+    unsigned char *ptr = cpu->data;
+    ptr[address] = value;
+}
+
+void mos6502_ram_write16(mos6502_t *cpu, unsigned short address, unsigned short value)
+{
+    unsigned char low_byte = value & 0x00ff;
+    unsigned char high_byte = value >> 8;
+    cpu->write8(cpu, address, low_byte);
+    cpu->write8(cpu, address + 1, high_byte);
+}
+
+void mos6502_add_test_full_mapping(mos6502_t *cpu, void *buffer)
+{
+    cpu->data = buffer;
+    cpu->read8 = mos6502_ram_read8;
+    cpu->write8 = mos6502_ram_write8;
+    cpu->read16 = mos6502_ram_read16;
+    cpu->write16 = mos6502_ram_write16;
+}
