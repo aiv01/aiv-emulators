@@ -15,6 +15,8 @@ void mos6502_init(mos6502_t *cpu){
     memset(cpu, 0, sizeof(mos6502_t));
     and_init(cpu);
     jump_init(cpu);
+    nop_init(cpu);
+    transfert_init(cpu);
 }
 
 unsigned char mos6502_ram_read8(mos6502_t *cpu, unsigned short address)
