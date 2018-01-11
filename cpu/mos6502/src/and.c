@@ -55,7 +55,6 @@ static int and_absolute_x(mos6502_t *cpu) {
     M6502_Z(cpu, cpu->a == 0);
     M6502_S(cpu, cpu->a >> 7);
 
-
     if (page >> 8 == address >> 8)
         return 4;
     return 5;
@@ -72,14 +71,13 @@ static int and_absolute_y(mos6502_t *cpu) {
     M6502_Z(cpu, cpu->a == 0);
     M6502_S(cpu, cpu->a >> 7);
 
-
     if (page >> 8 == address >> 8)
         return 4;
     return 5;
 }
 
 static int and_indirect_x(mos6502_t *cpu) {
-    unsigned short zp_address = cpu->read16(cpu, cpu->pc++);
+    unsigned short zp_address = cpu->read8(cpu, cpu->pc++);
 
     unsigned short page = zp_address + cpu->x;
     unsigned short address = cpu->read16(cpu, page);
@@ -94,12 +92,12 @@ static int and_indirect_x(mos6502_t *cpu) {
 }
 
 static int and_indirect_y(mos6502_t *cpu) {
-    unsigned short zp_address = cpu->read16(cpu, cpu->pc++);
+    unsigned short zp_address = cpu->read8(cpu, cpu->pc++);
 
     unsigned short address = cpu->read16(cpu, zp_address);
 
     unsigned short page = address + cpu->y;
-    unsigned char value = cpu->read8(cpu, address);
+    unsigned char value = cpu->read8(cpu, page);
     cpu->a &= value;
 
     M6502_Z(cpu, cpu->a == 0);
