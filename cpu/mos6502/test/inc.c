@@ -8,7 +8,6 @@ static int test_inc_page_zero()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
 
-    int value = 0xE6;
     cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
@@ -17,7 +16,7 @@ static int test_inc_page_zero()
     assert_is_equal(cpu.pc, 2);
     assert_is_zero(cpu.flags >> 7);
     assert_is_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_not_equal(value, value++);
+    assert_is_not_equal(rom[1], rom[1]++);
 
     return 0;
 }
@@ -29,7 +28,6 @@ static int test_inc_zero_page_x()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
 
-    int value = 0xF6;
     cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
@@ -38,7 +36,7 @@ static int test_inc_zero_page_x()
     assert_is_equal(cpu.pc, 2);
     assert_is_zero(cpu.flags >> 7);
     assert_is_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_not_equal(value, value++);
+    assert_is_not_equal(rom[1], rom[1]++);
 
     return 0;
 }
@@ -50,7 +48,6 @@ static int test_inc_absolute()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
 
-    int value = 0xEE;
     cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
@@ -59,7 +56,7 @@ static int test_inc_absolute()
     assert_is_equal(cpu.pc, 3);
     assert_is_zero(cpu.flags >> 7);
     assert_is_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_not_equal(value, value++);
+    assert_is_not_equal(rom[1], rom[1]++);
 
     return 0;
 }
@@ -71,7 +68,6 @@ static int test_inc_absolute_x()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
 
-    unsigned char value = 0xFE;
     cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
@@ -80,7 +76,7 @@ static int test_inc_absolute_x()
     assert_is_equal(cpu.pc, 3);
     assert_is_zero(cpu.flags >> 7);
     assert_is_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(value, value++);
+    assert_is_not_equal(rom[1], rom[1]++);
 
     return 0;
 }
