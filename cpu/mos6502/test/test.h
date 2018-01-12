@@ -15,3 +15,15 @@
 else {\
     fprintf(stdout, "TEST OK: " #f "()\n");\
 }
+
+#define is_set_bit_0(a) ((a & 0x01) == 0x01)
+#define is_set_bit_1(a) ((a & 0x02) == 0x02)
+#define is_set_bit_2(a) ((a & 0x04) == 0x04)
+#define is_set_bit_3(a) ((a & 0x08) == 0x08)
+
+#define is_set_bit_4(a) ((a & 0x10) == 0x10)
+#define is_set_bit_5(a) ((a & 0x20) == 0x20)
+#define is_set_bit_6(a) ((a & 0x40) == 0x40)
+#define is_set_bit_7(a) ((a & 0x80) == 0x80)
+
+
