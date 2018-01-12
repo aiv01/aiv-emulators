@@ -1,21 +1,26 @@
+#ifndef TEST_H
+#define TEST_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <mos6502.h>
 
-#define assert_is_equal(a, b) if (a != b) return -1;
-#define assert_is_zero(a) if (a != 0) return -1;
-#define assert_is_not_zero(a) if (a == 0) return -1;
-#define assert_is_not_equal(a, b) if (a == b) return -1;
+static int ERROR_LINE = 0;
+#define assert_is_equal(a, b) if (a != b) { ERROR_LINE = __LINE__; return -1; }
+#define assert_is_zero(a) if (a != 0) { ERROR_LINE = __LINE__; return -1; }
+#define assert_is_not_zero(a) if (a == 0) { ERROR_LINE = __LINE__; return -1; }
+#define assert_is_not_equal(a, b) if (a == b) { ERROR_LINE = __LINE__; return -1; }
 
 #define test(f) if (f())\
 {\
-    fprintf(stderr, "TEST FAILED: " #f "() file: " __FILE__ " line: %d\n", __LINE__);\
+    fprintf(stderr, "TEST FAILED: " #f "() file: " __FILE__ " line: %d\n", ERROR_LINE);\
     exit(1);\
 }\
 else {\
     fprintf(stdout, "TEST OK: " #f "()\n");\
 }
 
+<<<<<<< HEAD
 #define is_set_bit_0(a) ((a & 0x01) == 0x01)
 #define is_set_bit_1(a) ((a & 0x02) == 0x02)
 #define is_set_bit_2(a) ((a & 0x04) == 0x04)
@@ -27,3 +32,6 @@ else {\
 #define is_set_bit_7(a) ((a & 0x80) == 0x80)
 
 
+=======
+#endif
+>>>>>>> d2980ff90fc97e1b7866fd24d6e6823382e76a97
