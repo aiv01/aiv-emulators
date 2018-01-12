@@ -7,6 +7,7 @@ int test_all_eor();
 int test_all_inc();
 int test_all_dec();
 int test_all_transfert_test();
+int test_all_sta();
 
 int main(int argc, char *argv[])
 {
@@ -17,5 +18,6 @@ int main(int argc, char *argv[])
     test_all_inc();
     test_all_dec();
     test_all_transfert_test();
+    test_all_sta();
     fprintf(stdout, "ALL TESTS PASSED\n");
 }
