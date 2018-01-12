@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/* CASE2: Adding 1 to accumulator A = 0
+/* CASE: Adding 1 to accumulator A = 0
  *        With FLAGS: S V Z C
  *                    0 0 0 0
  *        EXPECTED:   
@@ -35,7 +35,7 @@ static int test_adc_immediate_case1()
     return 0;
 }
 
-/* CASE2: Adding 1 to accumulator A = 127
+/* CASE: Adding 1 to accumulator A = 127
  *        With FLAGS: S V Z C
  *                    0 0 0 0
  *        EXPECTED:   
@@ -64,7 +64,7 @@ static int test_adc_immediate_case2()
     assert_is_zero(((cpu.flags >> 1) & 0x01));     //Z) Zero
     assert_is_zero((cpu.flags & 0x01));            //C) Carry
     assert_is_equal(cpu.a, 128);
-                                         //$00 to $7F represents 0 to 127 and $80 to $FF represents -128 to -1
+                                         
     return 0;
 }
 
@@ -97,7 +97,6 @@ static int test_adc_immediate_case3()
     assert_is_not_zero(((cpu.flags >> 1) & 0x01)); //Z) Zero
     assert_is_not_zero((cpu.flags & 0x01));        //C) Carry
     assert_is_equal(cpu.a, 0);
-                                         //$00 to $7F represents 0 to 127 and $80 to $FF represents -128 to -1
     return 0;
 }
 
@@ -110,7 +109,7 @@ static int test_adc_immediate_case3()
  *           FLAGS:   S V Z C
  *                    0 0 0 0
 */
-static int test_adc_zeropage_case1()
+static int test_adc_zero_page_case1()
 {
     unsigned char rom[] = {0x65, 0x02, 0x01};   //Zero Page Address pointer = 0x02  point to Value = 0x01
 
@@ -143,7 +142,7 @@ static int test_adc_zeropage_case1()
  *           FLAGS:   S V Z C
  *                    0 0 0 0
 */
-static int test_adc_zeropagex_case1()
+static int test_adc_zero_page_x_case1_case1()
 {
     //Zero Page Address pointer = 0x02 + X offset (0x01) point to Value = 0x01 
     // 0x00 used just for padding
@@ -213,7 +212,7 @@ static int test_adc_absolute_case1()
  *           FLAGS:   S V Z C
  *                    0 0 0 0
 */
-static int test_adc_absolutex_case1()
+static int test_adc_absolute_x_case1()
 {
     //Absolute Address pointer 0x0200 (16bit address) + X=1 point to Value = 0x01 
     unsigned char rom[] = {0x7D, 0x02, 0x00, 0x01};   
@@ -248,7 +247,7 @@ static int test_adc_absolutex_case1()
  *           FLAGS:   S V Z C
  *                    0 0 0 0
 */
-static int test_adc_absolutex_case2()
+static int test_adc_absolute_x_case2()
 {
     
     unsigned char rom[257];
@@ -287,7 +286,7 @@ static int test_adc_absolutex_case2()
  *           FLAGS:   S V Z C
  *                    0 0 0 0
 */
-static int test_adc_absolutey_case1()
+static int test_adc_absolute_y_case1()
 {
     //Absolute Address pointer 0x0200 (16bit address) + Y=1 point to Value = 0x01 
     unsigned char rom[] = {0x79, 0x02, 0x00, 0x01};   
@@ -322,7 +321,7 @@ static int test_adc_absolutey_case1()
  *           FLAGS:   S V Z C
  *                    0 0 0 0
 */
-static int test_adc_indirectx_case1()
+static int test_adc_indirect_x_case1()
 {
     
     unsigned char rom[6];
@@ -364,7 +363,7 @@ static int test_adc_indirectx_case1()
  *           FLAGS:   S V Z C
  *                    0 0 0 0
 */
-static int test_adc_indirecty_case1()
+static int test_adc_indirect_y_case1()
 {
     unsigned char rom[6];
     memset(rom, 0, sizeof(rom));
@@ -404,7 +403,7 @@ static int test_adc_indirecty_case1()
  *           FLAGS:   S V Z C
  *                    0 0 0 0
 */
-static int test_adc_indirecty_case2()
+static int test_adc_indirect_y_case2()
 {
     unsigned char rom[257];
     memset(rom, 0, sizeof(rom));
@@ -439,14 +438,14 @@ int test_all_adc()
     test(test_adc_immediate_case1);
     test(test_adc_immediate_case2);
     test(test_adc_immediate_case3);
-    test(test_adc_zeropage_case1);
-    test(test_adc_zeropagex_case1);
+    test(test_adc_zero_page_case1);
+    test(test_adc_zero_page_x_case1_case1);
     test(test_adc_absolute_case1);
-    test(test_adc_absolutex_case1);
-    test(test_adc_absolutex_case2);
-    test(test_adc_absolutey_case1);
-    test(test_adc_indirectx_case1);
-    test(test_adc_indirecty_case1);
-    test(test_adc_indirecty_case2);
+    test(test_adc_absolute_x_case1);
+    test(test_adc_absolute_x_case2);
+    test(test_adc_absolute_y_case1);
+    test(test_adc_indirect_x_case1);
+    test(test_adc_indirect_y_case1);
+    test(test_adc_indirect_y_case2);
     return 0;
 }
