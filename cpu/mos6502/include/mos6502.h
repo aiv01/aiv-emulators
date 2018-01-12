@@ -16,6 +16,24 @@ typedef struct mos6502 {
     void *data;
 } mos6502_t;
 
+//cpu Flags
+#define FLAG_NEGATIVE   0x40
+#define FLAG_OVERFLOW   0x20
+#define FLAG_BREAK      0x10
+#define FLAG_DECIMAL    0x08
+#define FLAG_INTERRUPT  0x04
+#define FLAG_ZERO       0x02
+#define FLAG_CARRY      0x01
+
+//Read flags
+#define NEGATIVE_READ(cpu)  (cpu->flags & FLAG_NEGATIVE)
+#define OVERFL_READ(cpu)    (cpu->flags & FLAG_OVERFLOW)
+#define BRK_READ(cpu)       (cpu->flags & FLAG_BREAK)
+#define DECIM_READ(cpu)     (cpu->flags & FLAG_DECIMAL)
+#define INTERR_READ(cpu)    (cpu->flags & FLAG_INTERRUPT)
+#define ZERO_READ(cpu)      (cpu->flags & FLAG_ZERO)
+#define CARRY_READ(cpu)     (cpu->flags & FLAG_CARRY)
+
 //Defines the bit sign
 #define M6502_S(cpu, b) \
 if (b) \
@@ -68,3 +86,4 @@ void eor_init(mos6502_t *);
 void inc_init(mos6502_t *);
 void dec_init(mos6502_t *);
 void transfert_init(mos6502_t *);
+void branch_init(mos6502_t* );
