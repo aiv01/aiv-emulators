@@ -20,7 +20,6 @@ else {\
     fprintf(stdout, "TEST OK: " #f "()\n");\
 }
 
-<<<<<<< HEAD
 #define is_set_bit_0(a) ((a & 0x01) == 0x01)
 #define is_set_bit_1(a) ((a & 0x02) == 0x02)
 #define is_set_bit_2(a) ((a & 0x04) == 0x04)
@@ -31,7 +30,4 @@ else {\
 #define is_set_bit_6(a) ((a & 0x40) == 0x40)
 #define is_set_bit_7(a) ((a & 0x80) == 0x80)
 
-
-=======
 #endif
->>>>>>> d2980ff90fc97e1b7866fd24d6e6823382e76a97
