@@ -30,8 +30,8 @@ static int test_branch_equal_green_page_next()
     rom[2] = 0x00;
     rom[256] = 0x01;
     rom[257] = 0x05;
-
-    unsigned short next_page_val = (((short)rom[256]) << 8) | rom[257];
+ 
+    unsigned short next_page_val = (((unsigned short)rom[256]) << 8) | rom[257];
     
     mos6502_t cpu;
     mos6502_init(&cpu);
