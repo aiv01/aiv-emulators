@@ -11,6 +11,7 @@ int test_all_ora();
 int test_all_eor();
 int test_all_inc();
 int test_all_dec();
+int test_all_ldx();
 int test_all_transfert_test();
 
 int main(int argc, char *argv[])
@@ -26,6 +27,7 @@ int main(int argc, char *argv[])
     test_all_inc();
     test_all_dec();
     test_all_asl();
+    test_all_ldx();
     test_all_transfert_test();
     fprintf(stdout, "ALL TESTS PASSED\n");
 }
