@@ -13,6 +13,8 @@ int test_all_inc();
 int test_all_dec();
 int test_all_transfert_test();
 int test_all_ldy();
+int test_all_stack();
+
 int main(int argc, char *argv[])
 {
     test_all_and();
@@ -28,5 +30,6 @@ int main(int argc, char *argv[])
     test_all_asl();
     test_all_transfert_test();
     test_all_ldy();
+    test_all_stack();
     fprintf(stdout, "ALL TESTS PASSED\n");
 }
