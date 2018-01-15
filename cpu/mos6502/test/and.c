@@ -121,6 +121,7 @@ static int test_and_absolute_x_boundary()
     rom[1] = 0xff;
     rom[256] = 0x01;
  
+    
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
