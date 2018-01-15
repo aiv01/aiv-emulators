@@ -13,6 +13,7 @@ int mos6502_tick(mos6502_t *cpu) {
 
 void mos6502_init(mos6502_t *cpu){
     memset(cpu, 0, sizeof(mos6502_t));
+    cpu->sp = 0xFF;
     and_init(cpu);
     nop_init(cpu);
     adc_init(cpu);
@@ -21,6 +22,8 @@ void mos6502_init(mos6502_t *cpu){
     inc_init(cpu);
     dec_init(cpu);
     transfert_init(cpu);
+    jsr_init(cpu);
+    rts_init(cpu);
 }
 
 unsigned char mos6502_ram_read8(mos6502_t *cpu, unsigned short address)
