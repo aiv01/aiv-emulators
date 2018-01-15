@@ -1,4 +1,5 @@
 #include "test.h"
+#include <string.h>
 
 ////////////////////BEQ and BNE///////////////
 static int test_branch_equal_green() //BEQ
@@ -8,6 +9,35 @@ static int test_branch_equal_green() //BEQ
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
+
+    cpu.flags = FLAG_ZERO;
+    cpu.pc = 0;
+
+    int ticks = mos6502_tick(&cpu);  
+
+    assert_is_equal(ticks, 2);
+    assert_is_equal(cpu.pc, 2);
+
+    return 0;
+}
+
+static int test_branch_equal_green_page_next()
+{
+    unsigned char rom[258];
+    memset(rom, 0, sizeof(rom));
+    rom[0] = 0xF0;
+    rom[1] = 0x01;
+    rom[2] = 0x00;
+    rom[256] = 0x01;
+    rom[257] = 0x05;
+
+    unsigned short next_page_val = (((short)rom[256]) << 8) | rom[257];
+    
+    mos6502_t cpu;
+    mos6502_init(&cpu);
+    mos6502_add_test_full_mapping(&cpu, rom);
+
+    fprintf(stdout, "\n%u\n", next_page_val);
 
     cpu.flags = FLAG_ZERO;
     cpu.pc = 0;
@@ -312,6 +342,7 @@ static int test_branch_on_plus_red() //BPL
 int test_all_branch()
 {
     test(test_branch_equal_green);
+    test(test_branch_equal_green_page_next);
     test(test_branch_equal_red)
     test(test_branch_not_equal_green);
     test(test_branch_not_equal_red);

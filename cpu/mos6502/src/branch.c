@@ -7,7 +7,7 @@ static int branch_on_plus(mos6502_t* cpu) // BPL
     delta += src;
     if(!NEGATIVE_READ(cpu))
     {
-        cpu->pc = (unsigned char)delta;
+        cpu->pc = (unsigned short)delta;
         return 2;
     }
     return 3;
@@ -20,7 +20,7 @@ static int branch_on_minus(mos6502_t* cpu) //BMI
     delta += src;
     if(NEGATIVE_READ(cpu))
     {
-        cpu->pc = (unsigned char)delta;
+        cpu->pc = (unsigned short)delta;
         return 2;
     }
     return 3;
@@ -33,7 +33,7 @@ static int branch_on_not_equal(mos6502_t* cpu) //BNE
     delta += src;
     if(!ZERO_READ(cpu))
     {
-        cpu->pc = (unsigned char)delta;
+        cpu->pc = (unsigned short)delta;
         return 2;
     }
     return 3;
@@ -59,7 +59,7 @@ static int branch_on_overflow_clear(mos6502_t* cpu) //BVC
     delta += src;
     if(!OVERFL_READ(cpu))
     {
-        cpu->pc = (unsigned char)delta;
+        cpu->pc = (unsigned short)delta;
         return 2;
     }
     return 3;
@@ -72,7 +72,7 @@ static int branch_on_overflow_set(mos6502_t* cpu) //BVS
     delta += src;
     if(OVERFL_READ(cpu))
     {
-        cpu->pc = (unsigned char)delta;
+        cpu->pc = (unsigned short)delta;
         return 2;
     }
     return 3;
@@ -85,7 +85,7 @@ static int branch_on_carry_clear(mos6502_t* cpu) //BCC
     delta += src;
     if(!CARRY_READ(cpu))
     {
-        cpu->pc = (unsigned char)delta;
+        cpu->pc = (unsigned short)delta;
         return 2;
     }
     return 3;
@@ -98,7 +98,7 @@ static int branch_on_carry_set(mos6502_t* cpu) //BCS
     delta += src;
     if(CARRY_READ(cpu))
     {
-        cpu->pc = (unsigned char)delta;
+        cpu->pc = (unsigned short)delta;
         return 2;
     }
     return 3;
