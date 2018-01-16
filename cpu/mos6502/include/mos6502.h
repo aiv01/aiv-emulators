@@ -62,6 +62,8 @@ int mos6502_tick(mos6502_t *);
 void mos6502_add_test_full_mapping(mos6502_t *, void *);
 
 void and_init(mos6502_t *);
+void jump_init(mos6502_t*);
+void nop_init(mos6502_t *);
 void cmp_init(mos6502_t *);
 void cpx_init(mos6502_t *);
 void cpy_init(mos6502_t *);
@@ -75,3 +77,4 @@ void asl_init(mos6502_t *);
 void transfert_init(mos6502_t *);
 void ldy_init(mos6502_t *);
 void stack_init(mos6502_t *);
+void lda_init(mos6502_t *);

@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
         int ticks = mos6502_tick(&cpu);
         if (ticks < 0)
             break;
-        ticks_counter++;
+        ticks_counter+=ticks;
         fprintf(stdout, "[$%04X] A=$%02X X=$%02X Y=$%02X Flags=$%02X SP=$%02X value at address $%04X = $%02X\n",
             cpu.pc,
             cpu.a,
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
             cpu.flags,
             cpu.sp,
             address_to_monitor,
-            data[address_to_monitor]
+            (unsigned char )data[address_to_monitor]
         );
     }
 
