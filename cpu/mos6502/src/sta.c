@@ -13,7 +13,6 @@ static int sta_zero_page_x(mos6502_t *cpu)
     unsigned short address = cpu->read8(cpu, cpu->pc++);
     cpu->write8(cpu,address + cpu->x,cpu->a);
     
-
     return 4;
 }
 
@@ -32,7 +31,6 @@ static int sta_absolute_x(mos6502_t *cpu)
     cpu->pc++;
 
     cpu->write8(cpu,address + cpu->x,cpu->a);
-
 
     return 5;
 }

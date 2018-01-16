@@ -1,9 +1,9 @@
 #include "test.h"
 #include <stdio.h>
 
-static int test_stx_zero_page()
+static int test_sty_zero_page()
 {
-    unsigned char rom[] = {0x86, 0x01};
+    unsigned char rom[] = {0x84, 0x01};
 
 
     mos6502_t cpu;
@@ -14,14 +14,14 @@ static int test_stx_zero_page()
 
     assert_is_equal(ticks, 3);
     unsigned char address = cpu.read8(&cpu,0x01);
-    assert_is_equal(address, cpu.x);
+    assert_is_equal(address, cpu.y);
 
     return 0;
 }
 
-static int test_stx_zero_page_y()
+static int test_sty_zero_page_x()
 {
-    unsigned char rom[] = {0x96, 0x01};
+    unsigned char rom[] = {0x94, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -30,16 +30,17 @@ static int test_stx_zero_page_y()
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 4);
+
     unsigned char address = cpu.read8(&cpu,0x01);
     
-    assert_is_equal(address, cpu.x);
+    assert_is_equal(address, cpu.y);
 
     return 0;
 }
 
-static int test_stx_absolute()
+static int test_sty_absolute()
 {
-    unsigned char rom[] = {0x8E, 0x01,0x00};    
+    unsigned char rom[] = {0x8C, 0x01,0x00};    
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -49,16 +50,16 @@ static int test_stx_absolute()
 
     assert_is_equal(ticks, 4);
     unsigned char address = cpu.read8(&cpu,0x01);    
-    assert_is_equal(address, cpu.x);
+    assert_is_equal(address, cpu.y);
 
     return 0;
 }
 
-int test_all_stx()
+int test_all_sty()
 {
-    test(test_stx_zero_page);
-    test(test_stx_zero_page_y);
-    test(test_stx_absolute);
+    test(test_sty_zero_page);
+    test(test_sty_zero_page_x);
+    test(test_sty_absolute);
       
     return 0;
 }

@@ -21,7 +21,6 @@ static int stx_absolute(mos6502_t *cpu)
     unsigned short address = cpu->read16(cpu, cpu->pc++);
     cpu->pc++;
     cpu->write8(cpu,address,cpu->x);
-    
 
     return 4;
 }

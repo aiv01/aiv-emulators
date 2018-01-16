@@ -9,13 +9,10 @@ static int test_sta_zero_page()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
 
-    //cpu.a = 0xaf;
-    //cpu.pc = 0;
-
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 3);
-    unsigned char address = cpu.read8(&cpu,0x85);
+    unsigned char address = cpu.read8(&cpu,0x01);
     
     assert_is_equal(address, cpu.a);
 
@@ -30,13 +27,10 @@ static int test_sta_zero_page_x()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
 
-    //cpu.a = 0xaf;
-    //cpu.pc = 0;
-
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 4);
-    unsigned char address = cpu.read8(&cpu,0x95);
+    unsigned char address = cpu.read8(&cpu,0x01);
     
     assert_is_equal(address, cpu.a);
 
@@ -45,41 +39,30 @@ static int test_sta_zero_page_x()
 
 static int test_sta_absolute()
 {
-    unsigned char rom[] = {0x8D,0x01};
+    unsigned char rom[] = {0x8D,0x01,0x00};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
-    fprintf(stdout,"passato ");
-
-    //cpu.a = 0xaf;
-    //cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
-    fprintf(stdout,"passato ");
 
     assert_is_equal(ticks, 4);
-    fprintf(stdout,"passato ");
     
-    unsigned char address = cpu.read8(&cpu,0x8D);
-    fprintf(stdout,"passato ");
+    unsigned char address = cpu.read8(&cpu,0x01);
     
     assert_is_equal(address, cpu.a);
-    fprintf(stdout,"passato ");
 
     return 0;
 }
 
 static int test_sta_absolute_x()
 {
-    unsigned char rom[] = {0x9D,0x01};
+    unsigned char rom[] = {0x9D,0x01, 0x00};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
-
-    //cpu.a = 0xaf;
-    //cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
 
@@ -93,14 +76,11 @@ static int test_sta_absolute_x()
 
 static int test_sta_absolute_y()
 {
-    unsigned char rom[] = {0x99,0x01};
+    unsigned char rom[] = {0x99,0x01, 0x00};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
-
-    //cpu.a = 0xaf;
-    //cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
 
@@ -114,14 +94,11 @@ static int test_sta_absolute_y()
 
 static int test_sta_indirect_x()
 {
-    unsigned char rom[] = {0x81,0x01};
+    unsigned char rom[] = {0x81,0x01, 0x00};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
-
-    //cpu.a = 0xaf;
-    //cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
 
@@ -135,14 +112,11 @@ static int test_sta_indirect_x()
 
 static int test_sta_indirect_y()
 {
-    unsigned char rom[] = {0x91,0x01};
+    unsigned char rom[] = {0x91,0x01, 0x00};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
-
-    //cpu.a = 0xaf;
-    //cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
 
