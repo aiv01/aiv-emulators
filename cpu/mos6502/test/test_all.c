@@ -10,6 +10,7 @@ int test_all_nop();
 int test_all_adc();
 int test_all_ora();
 int test_all_eor();
+int test_all_sbc();
 int test_all_inc();
 int test_all_dec();
 int test_all_ldx();
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
     test_all_adc();
     test_all_ora();
     test_all_eor();
+    test_all_sbc();
     test_all_inc();
     test_all_dec();
     test_all_asl();

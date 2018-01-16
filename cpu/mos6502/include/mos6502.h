@@ -71,6 +71,7 @@ void nop_init(mos6502_t *);
 void adc_init(mos6502_t *);
 void ora_init(mos6502_t *);
 void eor_init(mos6502_t *);
+void sbc_init(mos6502_t *);
 void inc_init(mos6502_t *);
 void dec_init(mos6502_t *);
 void asl_init(mos6502_t *);

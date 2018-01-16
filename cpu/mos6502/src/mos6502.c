@@ -26,6 +26,7 @@ void mos6502_init(mos6502_t *cpu)
     adc_init(cpu);
     ora_init(cpu);
     eor_init(cpu);
+    sbc_init(cpu);
     inc_init(cpu);
     dec_init(cpu);
     asl_init(cpu);
