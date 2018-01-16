@@ -15,3 +15,4 @@
 else {\
     fprintf(stdout, "TEST OK: " #f "()\n");\
 }
+

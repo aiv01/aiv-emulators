@@ -23,6 +23,7 @@ void mos6502_init(mos6502_t *cpu){
     eor_init(cpu);
     inc_init(cpu);
     dec_init(cpu);
+    lsr_init(cpu);
     transfert_init(cpu);
 }
 

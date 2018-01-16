@@ -71,4 +71,5 @@ void ora_init(mos6502_t *);
 void eor_init(mos6502_t *);
 void inc_init(mos6502_t *);
 void dec_init(mos6502_t *);
+void lsr_init(mos6502_t *);
 void transfert_init(mos6502_t *);
