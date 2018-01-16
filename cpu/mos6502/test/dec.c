@@ -2,7 +2,7 @@
 
 static int test_dec_page_zero()
 {
-    unsigned char rom[] = {0xC6, 0x01};
+    unsigned char rom[] = {0xC6, 0x02, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -22,7 +22,7 @@ static int test_dec_page_zero()
 }
 static int test_dec_zero_page_x()
 {
-    unsigned char rom[] = {0xD6, 0x01};
+    unsigned char rom[] = {0xD6, 0x02, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -42,7 +42,7 @@ static int test_dec_zero_page_x()
 }
 static int test_dec_absolute()
 {
-    unsigned char rom[] = {0xCE, 0x01};
+    unsigned char rom[] = {0xCE, 0x03, 0x00, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -62,7 +62,8 @@ static int test_dec_absolute()
 }
 static int test_dec_absolute_x()
 {
-    unsigned char rom[] = {0xDE, 0x01};
+    //il primo è l'opcode, poi i 2 sono gli indirizzi e il quarto è il
+    unsigned char rom[] = {0xDE, 0x03, 0x00, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
