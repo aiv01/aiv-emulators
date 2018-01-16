@@ -14,6 +14,7 @@ int mos6502_tick(mos6502_t *cpu) {
 void mos6502_init(mos6502_t *cpu){
     memset(cpu, 0, sizeof(mos6502_t));
     and_init(cpu);
+    jump_init(cpu);
     cmp_init(cpu);
     cpx_init(cpu);
     cpy_init(cpu);

@@ -1,6 +1,7 @@
 #include "test.h"
 
 int test_all_and();
+int test_all_jump();
 int test_all_cmp();
 int test_all_cpx();
 int test_all_cpy();
@@ -16,6 +17,7 @@ int test_all_ldy();
 int main(int argc, char *argv[])
 {
     test_all_and();
+    test_all_jump();
     test_all_cmp();
     test_all_cpx();
     test_all_cpy();
