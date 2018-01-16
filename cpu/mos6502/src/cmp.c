@@ -69,10 +69,6 @@ static int cmp_absolute_y(mos6502_t *cpu) {
     unsigned short page = address + cpu->y;
     unsigned char value = cpu->read8(cpu, page);
 
-    fprintf(stdout,"V1: %d\n",value);
-    fprintf(stdout,"V2: %d\n",cpu->a);
-
-
     M6502_Z(cpu, cpu->a == value);
     M6502_S(cpu, (cpu->a-value) >> 7);
     M6502_C(cpu, cpu->a >= value);
@@ -84,13 +80,10 @@ static int cmp_absolute_y(mos6502_t *cpu) {
 
 static int cmp_indirect_x(mos6502_t *cpu) {
     unsigned short zp_address = cpu->read16(cpu, cpu->pc++);
-    fprintf(stdout,"ZPADDRESS: %d \n",zp_address);
     
     unsigned short page = zp_address + cpu->x;
-    fprintf(stdout,"PAGE: %d \n",page);
     
     unsigned short address = cpu->read16(cpu, page);
-    fprintf(stdout,"ADDRESS: %d \n",address);
     unsigned char value = cpu->read8(cpu, address);
 
     M6502_Z(cpu, cpu->a == value);
