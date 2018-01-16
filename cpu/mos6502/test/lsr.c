@@ -140,7 +140,6 @@ static int test_lsr_absolute_x()
 
     int ticks = mos6502_tick(&cpu);
     
-    fprintf(stdout,"ROM 274: %d \n", rom[274]);
     assert_is_equal(rom[274], 0x80); //first bit on the left on
     assert_is_equal(ticks,6);
     assert_is_equal(cpu.pc,3);
