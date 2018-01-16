@@ -33,6 +33,7 @@ void mos6502_init(mos6502_t *cpu)
     asl_init(cpu);
     ldx_init(cpu);
     transfert_init(cpu);
+    branch_init(cpu);
     sta_init(cpu);
     stx_init(cpu);
     sty_init(cpu);

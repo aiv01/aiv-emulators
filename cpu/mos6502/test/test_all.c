@@ -16,6 +16,7 @@ int test_all_dec();
 int test_all_lsr();
 int test_all_ldx();
 int test_all_transfert_test();
+int test_all_branch();
 int test_all_sta();
 int test_all_stx();
 int test_all_sty();
@@ -43,6 +44,7 @@ int main(int argc, char *argv[])
     test_all_asl();
     test_all_ldx();
     test_all_transfert_test();
+    test_all_branch();
     test_all_sta();
     test_all_stx();
     test_all_sty();
