@@ -234,12 +234,10 @@ static int test_branch_overflow_clear_red() //BVC
     cpu.flags = FLAG_OVERFLOW;
     cpu.pc = 0;
 
-
-    fprintf(stdout, "%c\n", cpu.flags >> 5);
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 3);
-    // fprintf(stdout, assert_is_not_zero(((cpu.flags >> 5) & 0x01));
+    assert_is_not_zero(((cpu.flags >> 5) & 0x01));
     assert_is_equal(cpu.pc, 2);
 
     return 0;
