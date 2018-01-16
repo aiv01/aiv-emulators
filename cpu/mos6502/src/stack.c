@@ -18,6 +18,7 @@ static int php(mos6502_t *cpu)
 
 static int pla(mos6502_t *cpu) 
 {
+    cpu->sp++;
     cpu->a = cpu->read8(cpu, 0x0100 + cpu->sp);
 
     M6502_S(cpu, cpu->a >> 7);
@@ -28,6 +29,7 @@ static int pla(mos6502_t *cpu)
 
 static int plp(mos6502_t *cpu) 
 {
+    cpu->sp++;
     cpu->flags = cpu->read8(cpu, 0x0100 + cpu->sp);
 
     return 4;
