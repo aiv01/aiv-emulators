@@ -44,6 +44,7 @@ static int test_inc_absolute()
 {
     unsigned char rom[] = {0xEE, 0x03, 0x00, 0x01};
 
+
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
@@ -63,6 +64,7 @@ static int test_inc_absolute()
 static int test_inc_absolute_x()
 {
     unsigned char rom[] = {0xFE, 0x03, 0x00, 0x01};
+
 
     mos6502_t cpu;
     mos6502_init(&cpu);
