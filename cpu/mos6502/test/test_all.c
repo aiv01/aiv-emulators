@@ -14,6 +14,8 @@ int test_all_inc();
 int test_all_dec();
 int test_all_ldx();
 int test_all_transfert_test();
+int test_all_jsr();
+int test_all_rts();
 int test_all_ldy();
 int test_all_stack();
 int test_all_lda();
@@ -34,6 +36,8 @@ int main(int argc, char *argv[])
     test_all_asl();
     test_all_ldx();
     test_all_transfert_test();
+    test_all_jsr();
+    test_all_rts();
     test_all_ldy();
     test_all_stack();
     test_all_lda();

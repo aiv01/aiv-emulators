@@ -16,6 +16,7 @@ int mos6502_tick(mos6502_t *cpu)
 void mos6502_init(mos6502_t *cpu)
 {
     memset(cpu, 0, sizeof(mos6502_t));
+    cpu->sp = 0xFF;
     and_init(cpu);
     jump_init(cpu);
     cmp_init(cpu);
@@ -30,6 +31,8 @@ void mos6502_init(mos6502_t *cpu)
     asl_init(cpu);
     ldx_init(cpu);
     transfert_init(cpu);
+    jsr_init(cpu);
+    rts_init(cpu);
     ldy_init(cpu);
     stack_init(cpu);
     lda_init(cpu);
