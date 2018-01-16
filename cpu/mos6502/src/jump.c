@@ -8,11 +8,24 @@ static int jump_absolute(mos6502_t *cpu)
     return 3;
 }
  
+/*
 static int jump_indirect(mos6502_t *cpu) 
 {
     unsigned short address = cpu->read16(cpu, cpu->pc++);
     cpu->pc++;
     cpu->pc += address;
+    return 5;
+}
+*/
+
+static int jump_indirect(mos6502_t *cpu) 
+{
+    unsigned short zp_address = cpu->read16(cpu, cpu->pc++);
+    cpu->pc++;
+
+    unsigned short address = cpu->read16(cpu, zp_address);
+
+    cpu->pc = address;
     return 5;
 }
 

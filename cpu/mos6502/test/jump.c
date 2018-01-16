@@ -20,7 +20,7 @@ static int test_jump_absolute()
 
 static int test_jump_indirect()
 {
-    unsigned char rom[] = {0x6C, 0x04, 0x00, 0x00, 0x45};
+    unsigned char rom[] = {0x6C, 0x04, 0x00, 0x00, 0x45, 0x00};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -31,7 +31,7 @@ static int test_jump_indirect()
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 5);
-    assert_is_equal(cpu.pc, 0x07);
+    assert_is_equal(cpu.pc, 0x45);
 
     return 0;
 }
