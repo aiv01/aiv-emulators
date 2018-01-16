@@ -4,14 +4,12 @@ static unsigned char check_pages(unsigned short addr1, unsigned short addr2)
 {
     char page_addr1 = addr1 >> 8;
     char page_addr2 = addr2 >> 8;
-    if(page_addr1 == page_addr2)
-        return 1;
-    else 
-        return 0;
+    return page_addr1 == page_addr2 ? 1 : 0;
 }
 
 static int branch_on_plus(mos6502_t* cpu) // BPL
 {
+    int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
     char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
@@ -19,13 +17,14 @@ static int branch_on_plus(mos6502_t* cpu) // BPL
     if(!NEGATIVE_READ(cpu))
     {
         cpu->pc = (unsigned short)delta;
-        return check_pages(delta, pc) ? 3 : 4;
+        return check_pages(pc_tick_start, pc) ? 3 : 4;
     }
     return 2;
 }
 
 static int branch_on_minus(mos6502_t* cpu) //BMI
 {
+    int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
     char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
@@ -33,13 +32,14 @@ static int branch_on_minus(mos6502_t* cpu) //BMI
     if(NEGATIVE_READ(cpu))
     {
         cpu->pc = (unsigned short)delta;
-        return check_pages(delta, pc) ? 3 : 4;
+        return check_pages(pc_tick_start, pc) ? 3 : 4;
     }
     return 2;
 }
 
 static int branch_on_not_equal(mos6502_t* cpu) //BNE
 {
+    int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
     char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
@@ -47,13 +47,14 @@ static int branch_on_not_equal(mos6502_t* cpu) //BNE
     if(!ZERO_READ(cpu))
     {
         cpu->pc = (unsigned short)delta;
-        return check_pages(delta, pc) ? 3 : 4;
+        return check_pages(pc_tick_start, pc) ? 3 : 4;
     }
     return 2;
 }
 
 static int branch_on_equal(mos6502_t* cpu) //BEQ
 {
+    int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
     char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
@@ -61,13 +62,14 @@ static int branch_on_equal(mos6502_t* cpu) //BEQ
     if(ZERO_READ(cpu))
     {
         cpu->pc = (unsigned short)delta;
-        return check_pages(delta, pc) ? 3 : 4;
+        return check_pages(pc_tick_start, pc) ? 3 : 4;
     }
     return 2;
 }
 
 static int branch_on_overflow_clear(mos6502_t* cpu) //BVC
 {
+    int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
     char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
@@ -75,13 +77,14 @@ static int branch_on_overflow_clear(mos6502_t* cpu) //BVC
     if(!OVERFL_READ(cpu))
     {
         cpu->pc = (unsigned short)delta;
-        return check_pages(delta, pc) ? 3 : 3;
+        return check_pages(pc_tick_start, pc) ? 3 : 3;
     }
     return 3;
 }
 
 static int branch_on_overflow_set(mos6502_t* cpu) //BVS
 {
+    int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
     char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
@@ -89,13 +92,14 @@ static int branch_on_overflow_set(mos6502_t* cpu) //BVS
     if(OVERFL_READ(cpu))
     {
         cpu->pc = (unsigned short)delta;
-        return check_pages(delta, pc) ? 3 : 4;
+        return check_pages(pc_tick_start, pc) ? 3 : 4;
     }
     return 2;
 }
 
 static int branch_on_carry_clear(mos6502_t* cpu) //BCC
 {
+    int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
     char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
@@ -103,13 +107,14 @@ static int branch_on_carry_clear(mos6502_t* cpu) //BCC
     if(!CARRY_READ(cpu))
     {
         cpu->pc = (unsigned short)delta;
-        return check_pages(delta, pc) ? 3 : 4;
+        return check_pages(pc_tick_start, pc) ? 3 : 4;
     }
     return 2;
 }
 
 static int branch_on_carry_set(mos6502_t* cpu) //BCS
 {
+    int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
     char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
@@ -117,7 +122,7 @@ static int branch_on_carry_set(mos6502_t* cpu) //BCS
     if(CARRY_READ(cpu))
     {
         cpu->pc = (unsigned short)delta;
-        return check_pages(delta, pc) ? 3 : 4;
+        return check_pages(pc_tick_start, pc) ? 3 : 4;
     }
     return 2;
 }
