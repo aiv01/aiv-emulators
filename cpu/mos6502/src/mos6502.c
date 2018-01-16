@@ -29,15 +29,15 @@ void mos6502_init(mos6502_t *cpu)
     sbc_init(cpu);
     inc_init(cpu);
     dec_init(cpu);
+    lsr_init(cpu);
     asl_init(cpu);
     ldx_init(cpu);
     transfert_init(cpu);
     inx_init(cpu);
     iny_init(cpu);
-<<<<<<< HEAD
     dex_init(cpu);
     dey_init(cpu);
-=======
+    branch_init(cpu);
     sta_init(cpu);
     stx_init(cpu);
     sty_init(cpu);
@@ -46,8 +46,6 @@ void mos6502_init(mos6502_t *cpu)
     ldy_init(cpu);
     stack_init(cpu);
     lda_init(cpu);
-
->>>>>>> 8f3e8e5c506cadd6b6684c2d1ad6f5cc8d34b70e
 }
 
 unsigned char mos6502_ram_read8(mos6502_t *cpu, unsigned short address)
