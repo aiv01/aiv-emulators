@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
             cpu.flags,
             cpu.sp,
             address_to_monitor,
-            data[address_to_monitor]
+            (unsigned char )data[address_to_monitor]
         );
     }
 

@@ -23,7 +23,7 @@ static int jump_indirect(mos6502_t *cpu)
     unsigned short indirect_address = cpu->read16(cpu, cpu->pc++);
     cpu->pc++;
 
-    unsigned short address = cpu->read16(cpu, zp_address);
+    unsigned short address = cpu->read16(cpu, indirect_address);
 
     cpu->pc = address;
     return 5;
