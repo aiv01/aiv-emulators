@@ -19,7 +19,7 @@ static int test_sbc_immediate_case1()
     assert_is_equal(cpu.pc, 2);
     assert_is_not_zero(cpu.flags >> 7);             //Sign
     assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
     assert_is_not_zero((cpu.flags & 0x01));         //Carry
     assert_is_equal(cpu.a, 0xff);
 
@@ -41,11 +41,11 @@ static int test_sbc_immediate_case2()
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.pc, 2);
-    assert_is_zero(cpu.flags >> 7);            //S) Sign
-    assert_is_not_zero(((cpu.flags >> 6) & 0x01)); //V) Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));     //Z) Zero
-    assert_is_not_zero((cpu.flags & 0x01));        //C) Carry
-    assert_is_equal(cpu.a, 130);
+    assert_is_zero(cpu.flags >> 7);             //S) Sign
+    assert_is_zero(((cpu.flags >> 6) & 0x01));  //V) Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Z) Zero
+    assert_is_zero((cpu.flags & 0x01));         //C) Carry
+    assert_is_equal(cpu.a, 0x7E);
                                          
     return 0;
 }
@@ -65,11 +65,11 @@ static int test_sbc_immediate_case3()
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.pc, 2);
-    assert_is_zero(cpu.flags >> 7);                //S) Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));     //V) Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));     //Z) Zero
-    assert_is_not_zero((cpu.flags & 0x01));        //C) Carry
-    assert_is_equal(cpu.a, 2);
+    assert_is_not_zero(cpu.flags >> 7);         //S) Sign
+    assert_is_zero(((cpu.flags >> 6) & 0x01));  //V) Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Z) Zero
+    assert_is_zero((cpu.flags & 0x01));         //C) Carry
+    assert_is_equal(cpu.a, 0xFE);
     return 0;
 }
 
@@ -88,11 +88,11 @@ static int test_sbc_zero_page_case1()
 
     assert_is_equal(ticks, 3);
     assert_is_equal(cpu.pc, 2);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -113,11 +113,11 @@ static int test_sbc_zero_page_x_case1_case1()
 
     assert_is_equal(ticks, 4);
     assert_is_equal(cpu.pc, 2);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -137,11 +137,11 @@ static int test_sbc_absolute_case1()
 
     assert_is_equal(ticks, 4);
     assert_is_equal(cpu.pc, 3);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -162,11 +162,11 @@ static int test_sbc_absolute_x_case1()
 
     assert_is_equal(ticks, 4);
     assert_is_equal(cpu.pc, 3);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -191,11 +191,11 @@ static int test_sbc_absolute_x_case2()
 
     assert_is_equal(ticks, 5);
     assert_is_equal(cpu.pc, 3);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -216,11 +216,11 @@ static int test_sbc_absolute_y_case1()
 
     assert_is_equal(ticks, 4);
     assert_is_equal(cpu.pc, 3);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -249,11 +249,11 @@ static int test_sbc_indirect_x_case1()
 
     assert_is_equal(ticks, 6);
     assert_is_equal(cpu.pc, 2);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -277,13 +277,14 @@ static int test_sbc_indirect_y_case1()
     cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
+
     assert_is_equal(ticks, 5);
     assert_is_equal(cpu.pc, 2);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -307,13 +308,14 @@ static int test_sbc_indirect_y_case2()
     cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
+
     assert_is_equal(ticks, 6);
     assert_is_equal(cpu.pc, 2);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
-    assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_zero(((cpu.flags >> 1) & 0x01));      //Zero
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
