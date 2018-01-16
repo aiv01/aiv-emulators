@@ -20,7 +20,7 @@ static int test_ldx_immediate()
 
 static int test_ldx_zero_page()
 {
-    unsigned char rom[] = {0xA6, 0x01, 0xFF};
+    unsigned char rom[] = {0xA6, 0x01};
  
      mos6502_t cpu;
      mos6502_init(&cpu);
@@ -32,14 +32,14 @@ static int test_ldx_zero_page()
  
      assert_is_equal(ticks, 3);
      assert_is_equal(cpu.pc, 2);
-     assert_is_equal(cpu.x, 0xFF);
+     assert_is_equal(cpu.x, 0x01);
  
      return 0;
 }
 
 static int test_ldx_zero_page_y()
  {
-     unsigned char rom[] = {0xB6, 0x02, 0xFE};
+     unsigned char rom[] = {0xB6, 0x01, 0xFE};
  
      mos6502_t cpu;
      mos6502_init(&cpu);

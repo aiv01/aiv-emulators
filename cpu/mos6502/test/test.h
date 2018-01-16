@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <mos6502.h>
 
 static int ERROR_LINE = 0;

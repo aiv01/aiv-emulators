@@ -13,7 +13,7 @@ static int rts(mos6502_t *cpu)
     cpu->sp++;
 
     // jump to return address
-    cpu->pc = rt_address;
+    cpu->pc = rt_address + 1;
     return 6;
 }
 

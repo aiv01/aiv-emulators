@@ -2,7 +2,7 @@
 
 static int ldx_immediate(mos6502_t *cpu) {
   
-    unsigned char value = cpu->read8(cpu,cpu->pc++)
+    unsigned char value = cpu->read8(cpu,cpu->pc++);
     cpu->x = value;  
 
     M6502_Z(cpu, cpu->x == 0);
@@ -23,7 +23,7 @@ static int ldx_zero_page(mos6502_t *cpu) {
     return 3;
 }
 
-static int and_zero_page_y(mos6502_t *cpu) {
+static int ldx_zero_page_y(mos6502_t *cpu) {
 
     unsigned short address = cpu->read8(cpu, cpu->pc++);
     unsigned char value = cpu->read8(cpu, address + cpu->y);
@@ -35,7 +35,7 @@ static int and_zero_page_y(mos6502_t *cpu) {
     return 4;
 }
 
-static int and_absolute(mos6502_t *cpu) {
+static int ldx_absolute(mos6502_t *cpu) {
 
    unsigned short address = cpu->read16(cpu, cpu->pc++);
     cpu->pc++;
@@ -48,7 +48,7 @@ static int and_absolute(mos6502_t *cpu) {
     return 4;
 }
 
-static int and_absolute_y(mos6502_t *cpu) {
+static int ldx_absolute_y(mos6502_t *cpu) {
 
     unsigned short address = cpu->read16(cpu, cpu->pc++);
     cpu->pc++;
