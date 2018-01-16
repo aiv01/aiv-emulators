@@ -25,6 +25,17 @@ typedef struct mos6502 {
 #define FLAG_ZERO       0x02
 #define FLAG_CARRY      0x01
 
+//set flags
+#define SET_BIT_NEGATIVE(cpu, b)\
+if(b)\
+{\
+    cpu->flags |= FLAG_NEGATIVE;\
+}\
+else\
+{\
+    cpu->flags &= (~FLAG_NEGATIVE);\
+}
+
 //Read flags
 #define NEGATIVE_READ(cpu)  (cpu->flags & FLAG_NEGATIVE)
 #define OVERFL_READ(cpu)    (cpu->flags & FLAG_OVERFLOW)
