@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, data);
 
+    cpu.sp = 0xFF;
     cpu.pc = offset;
 
     unsigned long long ticks_counter = 0;
