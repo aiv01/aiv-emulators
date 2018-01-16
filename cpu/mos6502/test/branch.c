@@ -16,7 +16,7 @@ static int test_branch_equal_green() //BEQ
 
     assert_is_equal(ticks, 3);
     assert_is_not_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(cpu.pc, 2);
+    assert_is_equal(cpu.pc, 3);
 
     return 0;
 }
@@ -56,7 +56,7 @@ static int test_branch_not_equal_green() //BNE
 
     assert_is_equal(ticks, 3);
     assert_is_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(cpu.pc, 2);
+    assert_is_equal(cpu.pc, 3);
 
     return 0;
 }
@@ -97,7 +97,7 @@ static int test_branch_carry_set_green() //BCS
 
     assert_is_equal(ticks, 3);
     assert_is_not_zero(((cpu.flags) & 0x01));
-    assert_is_equal(cpu.pc, 2);
+    assert_is_equal(cpu.pc, 3);
 
     return 0;
 }
@@ -137,7 +137,7 @@ static int test_branch_carry_clear_green() //BCC
 
     assert_is_equal(ticks, 3);
     assert_is_zero(((cpu.flags) & 0x01));
-    assert_is_equal(cpu.pc, 4);
+    assert_is_equal(cpu.pc, 5);
 
     return 0;
 }
@@ -165,7 +165,7 @@ static int test_branch_carry_clear_red() //BCC
 ////////////////////BVS and BVC///////////////
 static int test_branch_overflow_set_green() //BVS
 {
-    unsigned char rom[] = {0x70, 0x01};
+    unsigned char rom[] = {0x70, 0x02};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -178,7 +178,7 @@ static int test_branch_overflow_set_green() //BVS
 
     assert_is_equal(ticks, 3);
     assert_is_not_zero(((cpu.flags >> 5) & 0x01));
-    assert_is_equal(cpu.pc, 2);
+    assert_is_equal(cpu.pc, 4);
 
     return 0;
 }
@@ -218,7 +218,7 @@ static int test_branch_overflow_clear_green() //BVC
 
     assert_is_equal(ticks, 3);
     assert_is_zero(((cpu.flags >> 5) & 0x01));
-    assert_is_equal(cpu.pc, 2);
+    assert_is_equal(cpu.pc, 3);
 
     return 0;
 }
@@ -246,7 +246,7 @@ static int test_branch_overflow_clear_red() //BVC
 ////////////////////BPL and BMI///////////////
 static int test_branch_on_minus_green() //BMI
 {
-    unsigned char rom[] = {0x30, 0x05};
+    unsigned char rom[] = {0x30, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -259,7 +259,7 @@ static int test_branch_on_minus_green() //BMI
 
     assert_is_equal(ticks, 3);
     assert_is_not_zero(((cpu.flags >> 7) & 0x01));
-    assert_is_equal(cpu.pc, 6);
+    assert_is_equal(cpu.pc, 3);
 
     return 0;
 }
@@ -286,7 +286,7 @@ static int test_branch_on_minus_red() //BMI
 
 static int test_branch_on_plus_green() //BPL
 {
-    unsigned char rom[] = {0x10, 0x05};
+    unsigned char rom[] = {0x10, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -299,7 +299,7 @@ static int test_branch_on_plus_green() //BPL
 
     assert_is_equal(ticks, 3);
     assert_is_zero(((cpu.flags >> 7) & 0x01));
-    assert_is_equal(cpu.pc, 6);
+    assert_is_equal(cpu.pc, 3);
 
     return 0;
 }
