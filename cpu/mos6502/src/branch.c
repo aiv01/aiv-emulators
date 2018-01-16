@@ -54,9 +54,9 @@ static int branch_on_not_equal(mos6502_t* cpu) //BNE
 
 static int branch_on_equal(mos6502_t* cpu) //BEQ
 {
+    char src = cpu->read8(cpu, cpu->pc++);
     int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
-    char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
     int pc = delta;
     if(ZERO_READ(cpu))
