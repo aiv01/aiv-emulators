@@ -17,11 +17,11 @@ static int test_sbc_immediate_case1()
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.pc, 2);
-    assert_is_zero(cpu.flags >> 7);             //Sign
-    assert_is_zero(((cpu.flags >> 6) & 0x01));  //Overflow
+    assert_is_not_zero(cpu.flags >> 7);             //Sign
+    assert_is_not_zero(((cpu.flags >> 6) & 0x01));  //Overflow
     assert_is_zero(((cpu.flags >> 1) & 0x01));  //Zero
-    assert_is_zero((cpu.flags & 0x01));         //Carry
-    assert_is_equal(cpu.a, 1);
+    assert_is_not_zero((cpu.flags & 0x01));         //Carry
+    assert_is_equal(cpu.a, 0xff);
 
     return 0;
 }
@@ -41,7 +41,7 @@ static int test_sbc_immediate_case2()
 
     assert_is_equal(ticks, 2);
     assert_is_equal(cpu.pc, 2);
-    assert_is_not_zero(cpu.flags >> 7);            //S) Sign
+    assert_is_zero(cpu.flags >> 7);            //S) Sign
     assert_is_not_zero(((cpu.flags >> 6) & 0x01)); //V) Overflow
     assert_is_zero(((cpu.flags >> 1) & 0x01));     //Z) Zero
     assert_is_not_zero((cpu.flags & 0x01));        //C) Carry

@@ -12,7 +12,7 @@ static void compute_sbc_and_flags(mos6502_t *cpu, unsigned char value) {
         $80 to $FF represents -128 to -1
     */
     unsigned char carry_value = cpu->flags &= 0x01;                                 // C flag is at position 0. AND by 1 to find the value
-    unsigned short sub_as_short = value - cpu->a - carry_value;
+    unsigned short sub_as_short = cpu->a - value - carry_value;
     M6502_Z(cpu, !(sub_as_short & 0xFF));
     M6502_S(cpu, sub_as_short & 0x80);
 	M6502_V(cpu, !((cpu->a ^ value) & 0x80) && ((cpu->a ^ sub_as_short) & 0x80));   // Overflow calculated as Two complement representation
