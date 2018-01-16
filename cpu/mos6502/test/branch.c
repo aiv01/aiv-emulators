@@ -1,5 +1,4 @@
 #include "test.h"
-#include <string.h>
 
 ////////////////////BEQ and BNE///////////////
 static int test_branch_equal_green() //BEQ
@@ -15,7 +14,8 @@ static int test_branch_equal_green() //BEQ
 
     int ticks = mos6502_tick(&cpu);  
 
-    assert_is_equal(ticks, 2);
+    assert_is_equal(ticks, 3);
+    assert_is_not_zero(((cpu.flags >> 1) & 0x01));
     assert_is_equal(cpu.pc, 2);
 
     return 0;
