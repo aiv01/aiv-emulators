@@ -11,7 +11,7 @@ static int test_decrement_x()
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
-    assert_is_equal(cpu->x, 2);
+    assert_is_equal(cpu->x, cpu->x--);
 
     return 0;
 }
