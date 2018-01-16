@@ -1,6 +1,7 @@
 #include <mos6502.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static void usage()
 {
@@ -68,6 +69,7 @@ int main(int argc, char *argv[])
         fclose(f);
         return -1;
     }
+    memset(data, 0, 65536);
 
     fseek(f, 0, SEEK_SET);
 
@@ -75,6 +77,7 @@ int main(int argc, char *argv[])
     {
         fprintf(stderr, "error while reading binary image\n");
         fclose(f);
+	free(data);
         return -1;
     }
 
@@ -107,6 +110,8 @@ int main(int argc, char *argv[])
     }
 
     fprintf(stdout, "program exited after %llu ticks\n", ticks_counter);
+
+    free(data);
 
     return 0;
 }

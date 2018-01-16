@@ -9,7 +9,8 @@
 static int rts(mos6502_t *cpu)
 {
     // read return address from the stack
-    unsigned short rt_address = cpu->read16(cpu, ++cpu->sp);
+    cpu->sp++;
+    unsigned short rt_address = cpu->read16(cpu, 0x0100 + cpu->sp);
     cpu->sp++;
 
     // jump to return address

@@ -12,14 +12,14 @@ static int test_rts()
     cpu.sp = 0xFF;
     
     // push an address on the stack
-    unsigned short rt_address = 0x0100;
-    cpu.write16(&cpu, --cpu.sp, rt_address);
+    cpu.sp--;
+    cpu.write16(&cpu, 0x0100 + cpu.sp, 0xffaa);
     cpu.sp--;
 
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 6);
-    assert_is_equal(cpu.pc, rt_address+1);
+    assert_is_equal(cpu.pc, 0xffab);
     assert_is_equal(cpu.sp, 0xFF);
 
     return 0;
