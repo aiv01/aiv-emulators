@@ -44,6 +44,10 @@ int main(int argc, char *argv[])
     test_all_asl();
     test_all_ldx();
     test_all_transfert_test();
+    test_all_inx();
+    test_all_iny();
+    test_all_dex();
+    test_all_dey();
     test_all_branch();
     test_all_sta();
     test_all_stx();

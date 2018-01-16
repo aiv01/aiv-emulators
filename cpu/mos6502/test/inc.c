@@ -2,7 +2,7 @@
 
 static int test_inc_page_zero()
 {
-    unsigned char rom[] = {0xE6, 0x01};
+    unsigned char rom[] = {0xE6, 0x02, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -22,7 +22,7 @@ static int test_inc_page_zero()
 }
 static int test_inc_zero_page_x()
 {
-    unsigned char rom[] = {0xF6, 0x01};
+    unsigned char rom[] = {0xF6, 0x02, 0x01};
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -42,7 +42,8 @@ static int test_inc_zero_page_x()
 }
 static int test_inc_absolute()
 {
-    unsigned char rom[] = {0xEE, 0x01, 0x00};
+    unsigned char rom[] = {0xEE, 0x03, 0x00, 0x01};
+
 
     mos6502_t cpu;
     mos6502_init(&cpu);
@@ -62,7 +63,8 @@ static int test_inc_absolute()
 }
 static int test_inc_absolute_x()
 {
-    unsigned char rom[] = {0xFE, 0x01, 0x00};
+    unsigned char rom[] = {0xFE, 0x03, 0x00, 0x01};
+
 
     mos6502_t cpu;
     mos6502_init(&cpu);
