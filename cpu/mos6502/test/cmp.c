@@ -41,10 +41,8 @@ static int test_cmp_immediate_red_light()
     assert_is_equal(cpu.pc, 2);
     
     assert_is_equal(is_set_bit_1(cpu.flags),0); //z check expected 1 (are equal)
-    // fprintf(stdout,"s check : %d\n",is_set_bit_7(cpu.flags));
     
     assert_is_equal(is_set_bit_7(cpu.flags),1); // s check expected 1 (have sign)
-    // fprintf(stdout,"c check : %d\n",is_set_bit_0(cpu.flags));
     
     assert_is_equal(is_set_bit_0(cpu.flags),0); //c a is less
     
@@ -218,12 +216,9 @@ static int test_cmp_absolute_y()
 
     int ticks = mos6502_tick(&cpu);
 
-    fprintf(stdout,"tick : %d \n",ticks);
     assert_is_equal(ticks, 4);
-    fprintf(stdout,"pc : %d \n",cpu.pc);
     assert_is_equal(cpu.pc, 3);
     
-    fprintf(stdout,"z check : %d \n",is_set_bit_1(cpu.flags));
     assert_is_equal(is_set_bit_1(cpu.flags),1); //z check expected 1 (are equal)
     assert_is_equal(is_set_bit_7(cpu.flags),0); // s check expected 0 (have sign)
     assert_is_equal(is_set_bit_0(cpu.flags),1); //c check (is >=)
@@ -244,12 +239,9 @@ static int test_cmp_absolute_y_not_equal()
 
     int ticks = mos6502_tick(&cpu);
 
-    fprintf(stdout,"tick : %d \n",ticks);
     assert_is_equal(ticks, 4);
-    fprintf(stdout,"pc : %d \n",cpu.pc);
     assert_is_equal(cpu.pc, 3);
     
-    fprintf(stdout,"z check : %d \n",is_set_bit_1(cpu.flags));
     assert_is_equal(is_set_bit_1(cpu.flags),0); //z check expected 1 (are equal)
     assert_is_equal(is_set_bit_7(cpu.flags),0); // s check expected 0 (have sign)
     assert_is_equal(is_set_bit_0(cpu.flags),1); //c check (is >=)
@@ -268,12 +260,9 @@ static int test_cmp_indirect_x()
     cpu.x = 0x00;
     cpu.a = 0x03;
     int ticks = mos6502_tick(&cpu);
-    fprintf(stdout,"tick : %d \n",ticks);
     assert_is_equal(ticks, 6);
-    fprintf(stdout,"pc : %d \n",cpu.pc);
     assert_is_equal(cpu.pc, 2);
     
-    fprintf(stdout,"z check : %d \n",is_set_bit_1(cpu.flags));
     assert_is_equal(is_set_bit_1(cpu.flags),1); //z check expected 1 (are equal)
     assert_is_equal(is_set_bit_7(cpu.flags),0); // s check expected 0 (have sign)
     assert_is_equal(is_set_bit_0(cpu.flags),1); //c check (is >=)
@@ -291,25 +280,15 @@ static int test_cmp_indirect_y()
     cpu.y = 0x00;
     cpu.a = 0x03;
     int ticks = mos6502_tick(&cpu);
-    fprintf(stdout,"tick : %d \n",ticks);
     assert_is_equal(ticks, 5);
-    fprintf(stdout,"pc : %d \n",cpu.pc);
     assert_is_equal(cpu.pc, 2);
     
-    fprintf(stdout,"z check : %d \n",is_set_bit_1(cpu.flags));
     assert_is_equal(is_set_bit_1(cpu.flags),1); //z check expected 1 (are equal)
     assert_is_equal(is_set_bit_7(cpu.flags),0); // s check expected 0 (have sign)
     assert_is_equal(is_set_bit_0(cpu.flags),1); //c check (is >=)
     return 0;
 }
 
-int test_test()
-{
-    unsigned char pippo = 128;
-    int res = is_set_bit_7(pippo); //expected true (1)
-    fprintf(stdout,"res : %d",res);
-    return 0;
-}
 
 int test_all_cmp()
 {

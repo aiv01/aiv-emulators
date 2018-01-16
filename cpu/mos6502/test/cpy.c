@@ -15,13 +15,10 @@ static int test_cpy_immediate()
 
     int ticks = mos6502_tick(&cpu);
 
-    fprintf(stdout,"tick : %d \n",ticks);
     
     assert_is_equal(ticks, 2);
-    fprintf(stdout,"pc : %d \n",cpu.pc);
     
     assert_is_equal(cpu.pc, 2);
-    fprintf(stdout,"z check : %d \n",is_set_bit_1(cpu.flags));
     assert_is_equal(is_set_bit_1(cpu.flags),1); //z check expected 1 (are equal)
     assert_is_equal(is_set_bit_7(cpu.flags),0); // s check expected 0 (have sign)
     assert_is_equal(is_set_bit_0(cpu.flags),1); //c check (is >=)
@@ -63,14 +60,11 @@ static int test_cpy_absolute()
     cpu.pc = 0;
 
     int ticks = mos6502_tick(&cpu);
-    fprintf(stdout,"tick : %d\n",ticks);
 
     assert_is_equal(ticks, 4);
-    fprintf(stdout,"pc : %d\n",cpu.pc);
     
     assert_is_equal(cpu.pc, 3);
     
-    fprintf(stdout,"z check : %d\n",is_set_bit_1(cpu.flags));
     assert_is_equal(is_set_bit_1(cpu.flags),1); //z check expected 1 (are equal)
     assert_is_equal(is_set_bit_7(cpu.flags),0); // s check expected 0 (have sign)
     assert_is_equal(is_set_bit_0(cpu.flags),1); //c check (is >=)
