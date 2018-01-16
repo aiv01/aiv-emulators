@@ -17,7 +17,7 @@ typedef struct mos6502 {
 } mos6502_t;
 
 //cpu Flags
-#define FLAG_NEGATIVE   0x40
+#define FLAG_NEGATIVE   0x80
 #define FLAG_OVERFLOW   0x20
 #define FLAG_BREAK      0x10
 #define FLAG_DECIMAL    0x08
