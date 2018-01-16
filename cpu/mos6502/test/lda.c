@@ -118,7 +118,7 @@ static int test_lda_absolute_x_boundary()
 
     return 0;
 }
-int test_all_ldy()
+int test_all_lda()
 {
     test(test_lda_immediate);
     test(test_lda_zero_page);

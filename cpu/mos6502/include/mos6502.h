@@ -76,3 +76,4 @@ void dec_init(mos6502_t *);
 void asl_init(mos6502_t *);
 void transfert_init(mos6502_t *);
 void ldy_init(mos6502_t *);
+void lda_init(mos6502_t *);

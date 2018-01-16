@@ -123,7 +123,7 @@ static int lda_indirect_y(mos6502_t *cpu)
     return 6;
 }
 
-void ldy_init(mos6502_t *cpu)
+void lda_init(mos6502_t *cpu)
 {
     cpu->op_codes[0xA9] = lda_immediate;
     cpu->op_codes[0xA5] = lda_zero_page;
