@@ -1,17 +1,18 @@
 #include <mos6502.h>
+#include <stdio.h>
 
 static unsigned char check_pages(unsigned short addr1, unsigned short addr2)
 {
     char page_addr1 = addr1 >> 8;
     char page_addr2 = addr2 >> 8;
-    return page_addr1 == page_addr2 ? 1 : 0;
+    return page_addr1 == page_addr2;
 }
 
 static int branch_on_plus(mos6502_t* cpu) // BPL
 {
+    char src = cpu->read8(cpu, cpu->pc++);
     int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
-    char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
     int pc = delta;
     if(!NEGATIVE_READ(cpu))
@@ -24,9 +25,9 @@ static int branch_on_plus(mos6502_t* cpu) // BPL
 
 static int branch_on_minus(mos6502_t* cpu) //BMI
 {
+    char src = cpu->read8(cpu, cpu->pc++);
     int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
-    char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
     int pc = delta;
     if(NEGATIVE_READ(cpu))
@@ -39,9 +40,9 @@ static int branch_on_minus(mos6502_t* cpu) //BMI
 
 static int branch_on_not_equal(mos6502_t* cpu) //BNE
 {
+    char src = cpu->read8(cpu, cpu->pc++);
     int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
-    char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
     int pc = delta;
     if(!ZERO_READ(cpu))
@@ -69,9 +70,9 @@ static int branch_on_equal(mos6502_t* cpu) //BEQ
 
 static int branch_on_overflow_clear(mos6502_t* cpu) //BVC
 {
+    char src = cpu->read8(cpu, cpu->pc++);
     int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
-    char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
     int pc = delta;
     if(!OVERFL_READ(cpu))
@@ -84,9 +85,9 @@ static int branch_on_overflow_clear(mos6502_t* cpu) //BVC
 
 static int branch_on_overflow_set(mos6502_t* cpu) //BVS
 {
+    char src = cpu->read8(cpu, cpu->pc++);
     int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
-    char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
     int pc = delta;
     if(OVERFL_READ(cpu))
@@ -99,9 +100,9 @@ static int branch_on_overflow_set(mos6502_t* cpu) //BVS
 
 static int branch_on_carry_clear(mos6502_t* cpu) //BCC
 {
+    char src = cpu->read8(cpu, cpu->pc++);
     int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
-    char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
     int pc = delta;
     if(!CARRY_READ(cpu))
@@ -114,9 +115,9 @@ static int branch_on_carry_clear(mos6502_t* cpu) //BCC
 
 static int branch_on_carry_set(mos6502_t* cpu) //BCS
 {
+    char src = cpu->read8(cpu, cpu->pc++);
     int pc_tick_start = cpu->pc;
     int delta = cpu->pc;
-    char src = cpu->read8(cpu, cpu->pc++);
     delta += src;
     int pc = delta;
     if(CARRY_READ(cpu))
