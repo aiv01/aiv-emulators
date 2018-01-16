@@ -16,7 +16,7 @@ static int test_dec_page_zero()
     assert_is_equal(cpu.pc, 2);
     assert_is_zero(cpu.flags >> 7);
     assert_is_not_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(rom[1], 0);
+    assert_is_equal(rom[2], 0);
 
     return 0;
 }
@@ -36,7 +36,7 @@ static int test_dec_zero_page_x()
     assert_is_equal(cpu.pc, 2);
     assert_is_zero(cpu.flags >> 7);
     assert_is_not_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(rom[1], 0);
+    assert_is_equal(rom[2], 0);
 
     return 0;
 }
@@ -56,7 +56,7 @@ static int test_dec_absolute()
     assert_is_equal(cpu.pc, 3);
     assert_is_zero(cpu.flags >> 7);
     assert_is_not_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(rom[1], 0);
+    assert_is_equal(rom[3], 0);
 
     return 0;
 }
@@ -78,7 +78,7 @@ static int test_dec_absolute_x()
     assert_is_equal(cpu.pc, 3);
     assert_is_zero(cpu.flags >> 7);
     assert_is_not_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(rom[1], 0);
+    assert_is_equal(rom[3], 0);
 
     return 0;
 }

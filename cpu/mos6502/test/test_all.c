@@ -25,6 +25,10 @@ int test_all_rts();
 int test_all_ldy();
 int test_all_stack();
 int test_all_lda();
+int test_all_inx();
+int test_all_iny();
+int test_all_dex();
+int test_all_dey();
 
 int main(int argc, char *argv[])
 {

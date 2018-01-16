@@ -8,10 +8,12 @@ static int test_decrement_y()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, &rom);
 
+    cpu.y = 6;
+
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
-    assert_is_equal(cpu->y, cpu->y--);
+    assert_is_equal(cpu.y, 5);
 
     return 0;
 }

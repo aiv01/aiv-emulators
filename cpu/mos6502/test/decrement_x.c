@@ -8,16 +8,18 @@ static int test_decrement_x()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, &rom);
 
+    cpu.x = 3;
+
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
-    assert_is_equal(cpu->x, cpu->x--);
+    assert_is_equal(cpu.x, 2);
 
     return 0;
 }
 
 int test_all_dex()
 {
-    test(test_increment_x);
+    test(test_decrement_x);
     return 0;
 }

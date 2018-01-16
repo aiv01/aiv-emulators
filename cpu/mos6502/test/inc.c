@@ -57,7 +57,7 @@ static int test_inc_absolute()
     assert_is_equal(cpu.pc, 3);
     assert_is_zero(cpu.flags >> 7);
     assert_is_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(rom[1], 2);
+    assert_is_equal(rom[3], 2);
 
     return 0;
 }
@@ -78,7 +78,7 @@ static int test_inc_absolute_x()
     assert_is_equal(cpu.pc, 3);
     assert_is_zero(cpu.flags >> 7);
     assert_is_zero(((cpu.flags >> 1) & 0x01));
-    assert_is_equal(rom[1], 2);
+    assert_is_equal(rom[3], 2);
 
     return 0;
 }

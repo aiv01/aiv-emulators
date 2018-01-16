@@ -116,4 +116,8 @@ void rts_init(mos6502_t *);
 void ldy_init(mos6502_t *);
 void stack_init(mos6502_t *);
 void lda_init(mos6502_t *);
+void inx_init(mos6502_t *);
+void iny_init(mos6502_t *);
+void dex_init(mos6502_t *);
+void dey_init(mos6502_t *);
 

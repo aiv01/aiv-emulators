@@ -8,10 +8,12 @@ static int test_increment_x()
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, &rom);
 
+    cpu.x = 1;
+
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);
-    assert_is_equal(cpu->x, 2);
+    assert_is_equal(cpu.x, 2);
 
     return 0;
 }
