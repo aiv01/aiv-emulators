@@ -46,6 +46,7 @@ void mos6502_init(mos6502_t *cpu)
     ldy_init(cpu);
     stack_init(cpu);
     lda_init(cpu);
+    rti_init(cpu);
     flags_init(cpu);
 }
 
