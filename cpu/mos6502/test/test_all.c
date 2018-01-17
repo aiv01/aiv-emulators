@@ -23,6 +23,7 @@ int test_all_rts();
 int test_all_ldy();
 int test_all_stack();
 int test_all_lda();
+int test_all_rti();
 
 int main(int argc, char *argv[])
 {
@@ -49,5 +50,6 @@ int main(int argc, char *argv[])
     test_all_ldy();
     test_all_stack();
     test_all_lda();
+    test_all_rti();
     fprintf(stdout, "ALL TESTS PASSED\n");
 }

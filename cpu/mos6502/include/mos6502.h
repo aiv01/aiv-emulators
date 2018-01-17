@@ -85,4 +85,4 @@ void rts_init(mos6502_t *);
 void ldy_init(mos6502_t *);
 void stack_init(mos6502_t *);
 void lda_init(mos6502_t *);
-
+void rti_init(mos6502_t *);

@@ -40,6 +40,7 @@ void mos6502_init(mos6502_t *cpu)
     ldy_init(cpu);
     stack_init(cpu);
     lda_init(cpu);
+    rti_init(cpu);
 }
 
 unsigned char mos6502_ram_read8(mos6502_t *cpu, unsigned short address)
