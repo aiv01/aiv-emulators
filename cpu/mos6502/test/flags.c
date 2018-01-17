@@ -29,7 +29,7 @@ static int test_set_carry()
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);                  //expecting 2 ticks
-    assert_is_not_zero(((cpu.flags) & 0x01));   //flag is carry, checking it's clear, expecting 0
+    assert_is_not_zero(((cpu.flags) & 0x01));   //flag is carry, checking it's set, expecting 1
 
     return 0;
 }
@@ -63,7 +63,7 @@ static int test_set_interrupt()
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);                          //expecting 2 ticks
-    assert_is_not_zero(((cpu.flags >> 2) & 0x01));      //flag is interrupt, checking it's clear, expecting 0
+    assert_is_not_zero(((cpu.flags >> 2) & 0x01));      //flag is interrupt, checking it's set, expecting 1
 
     return 0;
 }
@@ -114,7 +114,7 @@ static int test_set_decimal()
     int ticks = mos6502_tick(&cpu);
 
     assert_is_equal(ticks, 2);                          //expecting 2 ticks
-    assert_is_not_zero(((cpu.flags >> 3) & 0x01));      //flag is decimal, checking it's clear, expecting 0
+    assert_is_not_zero(((cpu.flags >> 3) & 0x01));      //flag is decimal, checking it's set, expecting 1
 
     return 0;
 }
