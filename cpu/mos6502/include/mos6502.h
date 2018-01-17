@@ -36,6 +36,66 @@ else\
     cpu->flags &= (~FLAG_NEGATIVE);\
 }
 
+#define SET_BIT_OVERFLOW(cpu, b)\
+if(b)\
+{\
+    cpu->flags |= FLAG_OVERFLOW;\
+}\
+else\
+{\
+    cpu->flags &= (~FLAG_OVERFLOW);\
+}
+
+#define SET_BIT_BREAK(cpu, b)\
+if(b)\
+{\
+    cpu->flags |= FLAG_BREAK;\
+}\
+else\
+{\
+    cpu->flags &= (~FLAG_BREAK);\
+}
+
+#define SET_BIT_DECIMAL(cpu, b)\
+if(b)\
+{\
+    cpu->flags |= FLAG_DECIMAL;\
+}\
+else\
+{\
+    cpu->flags &= (~FLAG_DECIMAL);\
+}
+
+#define SET_BIT_INTERRUPT(cpu, b)\
+if(b)\
+{\
+    cpu->flags |= FLAG_INTERRUPT;\
+}\
+else\
+{\
+    cpu->flags &= (~FLAG_INTERRUPT);\
+}
+
+#define SET_BIT_ZERO(cpu, b)\
+if(b)\
+{\
+    cpu->flags |= FLAG_ZERO;\
+}\
+else\
+{\
+    cpu->flags &= (~FLAG_ZERO);\
+}
+
+#define SET_BIT_CARRY(cpu, b)\
+if(b)\
+{\
+    cpu->flags |= FLAG_CARRY;\
+}\
+else\
+{\
+    cpu->flags &= (~FLAG_CARRY);\
+}
+
 //Read flags
 #define NEGATIVE_READ(cpu)  (cpu->flags & FLAG_NEGATIVE)
 #define OVERFL_READ(cpu)    (cpu->flags & FLAG_OVERFLOW)
@@ -120,4 +180,5 @@ void inx_init(mos6502_t *);
 void iny_init(mos6502_t *);
 void dex_init(mos6502_t *);
 void dey_init(mos6502_t *);
+void flags_init(mos6502_t*);
 

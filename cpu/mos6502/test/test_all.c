@@ -29,6 +29,7 @@ int test_all_inx();
 int test_all_iny();
 int test_all_dex();
 int test_all_dey();
+int test_all_flags();
 
 int main(int argc, char *argv[])
 {
@@ -61,5 +62,6 @@ int main(int argc, char *argv[])
     test_all_ldy();
     test_all_stack();
     test_all_lda();
+    test_all_flags();
     fprintf(stdout, "ALL TESTS PASSED\n");
 }
