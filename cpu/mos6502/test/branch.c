@@ -8,9 +8,9 @@ static int test_branch_equal_green() //BEQ
     mos6502_t cpu;
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
-
-    cpu.flags = FLAG_ZERO;
-    cpu.pc = 0;
+    
+    cpu.flags = FLAG_ZERO;       //set ZERO_BIT to 1
+    cpu.pc = 0;                 //setup pc to 0
 
     int ticks = mos6502_tick(&cpu);  
 
@@ -312,6 +312,7 @@ static int test_branch_on_plus_red() //BPL
     mos6502_init(&cpu);
     mos6502_add_test_full_mapping(&cpu, rom);
 
+    //set current NEGATIVE flag to 1
     cpu.flags = FLAG_NEGATIVE;
     cpu.pc = 0;
 
