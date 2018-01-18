@@ -11,6 +11,8 @@ typedef struct mos6502 {
     void (*write8)(struct mos6502 *, unsigned short, unsigned char);
     void (*write16)(struct mos6502 *, unsigned short, unsigned short);
 
+    void (*interrupt)(struct mos6502 *, int);
+
     int (*op_codes[256])(struct mos6502 *);
 
     void *data;

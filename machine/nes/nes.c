@@ -10,33 +10,33 @@ static nes_cpu_mappings_t nes_cpu_memory;
 
 unsigned char nes_cpu_read8(mos6502_t *cpu, unsigned short address)
 {
-    unsigned char high_byte_page = (unsigned char )(address & 0xf000);
-    high_byte_page >>= 4;
+    unsigned short page = (address & 0xf000);
+    unsigned char high_byte_page = (unsigned char)(page >> 12);
 
-    switch(high_byte_page)
+    switch (high_byte_page)
     {
-        case 0x00:
-        case 0x01:
-            {
-                int internal_address = address % 2048;
-                return nes_cpu_memory.ram[internal_address];
-            }
-            break;
-        case 0x02:
-        case 0x03:
-            {
-                int internal_address = (address - 0x2000) % 8;
-                return ppu_register_read(internal_address);
-            }
-            break;
-        case 0x04:
-        case 0x05:
-        case 0x06:
-        case 0x07:
-            // TODO manage input and APU
-            break;
-        default:
-            return nes_cpu_memory.prg_rom[address - 0x8000];
+    case 0x00:
+    case 0x01:
+    {
+        int internal_address = address % 2048;
+        return nes_cpu_memory.ram[internal_address];
+    }
+    break;
+    case 0x02:
+    case 0x03:
+    {
+        int internal_address = (address - 0x2000) % 8;
+        return ppu_register_read(internal_address);
+    }
+    break;
+    case 0x04:
+    case 0x05:
+    case 0x06:
+    case 0x07:
+        // TODO manage input and APU
+        break;
+    default:
+        return nes_cpu_memory.prg_rom[address - 0x8000];
     }
     return 0;
 }
@@ -51,33 +51,33 @@ unsigned short nes_cpu_read16(mos6502_t *cpu, unsigned short address)
 
 void nes_cpu_write8(mos6502_t *cpu, unsigned short address, unsigned char value)
 {
-    unsigned char high_byte_page = (unsigned char )(address & 0xf000);
-    high_byte_page >>= 4;
+    unsigned short page = (address & 0xf000);
+    unsigned char high_byte_page = (unsigned char)(page >> 12);
 
-    switch(high_byte_page)
+    switch (high_byte_page)
     {
-        case 0x00:
-        case 0x01:
-            {
-                int internal_address = address % 2048;
-                nes_cpu_memory.ram[internal_address] = value;
-            }
-            break;
-        case 0x02:
-        case 0x03:
-            {
-                int internal_address = (address - 0x2000) % 8;
-                ppu_register_write(internal_address, value);
-            }
-            break;
-        case 0x04:
-        case 0x05:
-        case 0x06:
-        case 0x07:
-            // TODO manage input and APU
-            break;
-        default:
-            nes_cpu_memory.prg_rom[address - 0x8000] = value;
+    case 0x00:
+    case 0x01:
+    {
+        int internal_address = address % 2048;
+        nes_cpu_memory.ram[internal_address] = value;
+    }
+    break;
+    case 0x02:
+    case 0x03:
+    {
+        int internal_address = (address - 0x2000) % 8;
+        ppu_register_write(internal_address, value);
+    }
+    break;
+    case 0x04:
+    case 0x05:
+    case 0x06:
+    case 0x07:
+        // TODO manage input and APU
+        break;
+    default:
+        nes_cpu_memory.prg_rom[address - 0x8000] = value;
     }
 }
 
@@ -89,6 +89,22 @@ void nes_cpu_write16(mos6502_t *cpu, unsigned short address, unsigned short valu
     cpu->write8(cpu, address + 1, high_byte);
 }
 
+static void nes_interrupt(mos6502_t *cpu, int id)
+{
+    switch(id)
+    {
+        case 0:
+            cpu->sp--;
+            cpu->write16(cpu, 0x0100 + cpu->sp, cpu->pc);
+            cpu->sp--;
+            cpu->write8(cpu, 0x0100 + cpu->sp, cpu->flags);
+            cpu->sp--;
+            cpu->pc = cpu->read16(cpu, 0xfffa);
+            break;
+    }
+}
+
+
 void nes_add_cpu_mapping(mos6502_t *cpu, void *buffer)
 {
     cpu->data = buffer;
@@ -96,6 +112,7 @@ void nes_add_cpu_mapping(mos6502_t *cpu, void *buffer)
     cpu->write8 = nes_cpu_write8;
     cpu->read16 = nes_cpu_read16;
     cpu->write16 = nes_cpu_write16;
+    cpu->interrupt = nes_interrupt;
 }
 
 
@@ -136,7 +153,7 @@ static unsigned char *load_rom(char *filename, int *rom_size)
     {
         fprintf(stderr, "error while reading binary image\n");
         fclose(f);
-	free(data);
+        free(data);
         return NULL;
     }
 
@@ -144,7 +161,6 @@ static unsigned char *load_rom(char *filename, int *rom_size)
 
     *rom_size = file_size;
     return data;
- 
 }
 
 int main(int argc, char *argv[])
@@ -176,65 +192,84 @@ int main(int argc, char *argv[])
 
     if (SDL_CreateWindowAndRenderer(256, 240, 0, &window, &renderer))
     {
-            fprintf(stderr, "unable to create window and renderer\n");
-	    SDL_Quit();
-	    goto end;
+        fprintf(stderr, "unable to create window and renderer\n");
+        SDL_Quit();
+        goto end;
     }
 
     SDL_SetWindowTitle(window, "AIV Nes");
-
 
     mos6502_t cpu;
     mos6502_init(&cpu);
     nes_add_cpu_mapping(&cpu, rom);
 
+    unsigned char prg_size = rom[4];
+    fprintf(stderr, "prg size = %u\n", prg_size);
+    if (prg_size == 1)
+    {
+        memcpy(nes_cpu_memory.prg_rom, rom + 16, 16384);
+        memcpy(nes_cpu_memory.prg_rom + 16384, rom + 16, 16384);
+        ppu_load(rom + 16 + 16384, 4096);
+    }
+    else if (prg_size == 2)
+    {
+        memcpy(nes_cpu_memory.prg_rom, rom + 16, 32768);
+        ppu_load(rom + 16 + 32768, 4096);
+    }
+    else
+    {
+        fprintf(stderr, "invalid rom\n");
+        SDL_Quit();
+        goto end;
+    }
+
     cpu.sp = 0xFF;
-    // TODO get it from vector table
-    cpu.pc = 0;
+    cpu.pc = cpu.read16(&cpu, 0xfffc);
+
+    fprintf(stdout, "%u\n", cpu.pc);
 
     int ended = 0;
 
     int ppu_ticks = 0;
     int cpu_accumulated_ticks = 0;
 
-    while(!ended)
+    while (!ended)
     {
-    	SDL_Event event;
-	    while (SDL_PollEvent(&event))
-	    {
-        	if (event.type == SDL_QUIT) {
-			ended = 1;
-            		break;
-        	}
-	    }
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+            {
+                ended = 1;
+                break;
+            }
+        }
 
-	ppu_tick(renderer);
-	ppu_ticks++;
+        ppu_tick(renderer, &cpu);
+        ppu_ticks++;
 
-	if (ppu_ticks >= 3)
-	{
-		if (cpu_accumulated_ticks <= 0)
-		{
-			cpu_accumulated_ticks = mos6502_tick(&cpu);
-			if (cpu_accumulated_ticks <= 0)
-			{
-				break;
-			}
-        fprintf(stdout, "[$%04X] A=$%02X X=$%02X Y=$%02X Flags=$%02X SP=$%02X\n",
-            cpu.pc,
-            cpu.a,
-            cpu.x,
-            cpu.y,
-            cpu.flags,
-            cpu.sp
-        );
-		}
-		// always decrease one accumulated tick
-		cpu_accumulated_ticks--;
-		ppu_ticks = 0;
-	}
+        if (ppu_ticks >= 3)
+        {
+            if (cpu_accumulated_ticks <= 0)
+            {
+                cpu_accumulated_ticks = mos6502_tick(&cpu);
+                if (cpu_accumulated_ticks <= 0)
+                {
+                    break;
+                }
+                /*fprintf(stdout, "[$%04X] A=$%02X X=$%02X Y=$%02X Flags=$%02X SP=$%02X\n",
+                        cpu.pc,
+                        cpu.a,
+                        cpu.x,
+                        cpu.y,
+                        cpu.flags,
+                        cpu.sp);*/
+            }
+            // always decrease one accumulated tick
+            cpu_accumulated_ticks--;
+            ppu_ticks = 0;
+        }
 
-        SDL_RenderPresent(renderer);
     }
 
     ret = 0;
