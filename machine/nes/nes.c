@@ -1,5 +1,78 @@
 #include <nes.h>
 
+typedef struct nes_cpu_mappings
+{
+    unsigned char ram[2048];
+    unsigned char prg_rom[32768];
+} nes_cpu_mappings_t;
+
+static nes_cpu_mappings_t nes_cpu_memory;
+
+unsigned char nes_cpu_read8(mos6502_t *cpu, unsigned short address)
+{
+    unsigned char high_byte_page = (unsigned char )(address & 0xf000);
+    high_byte_page >>= 4;
+
+    switch(high_byte_page)
+    {
+        case 0x00:
+        case 0x01:
+            {
+                int internal_address = address % 2048;
+                return nes_cpu_memory.ram[internal_address];
+            }
+            break;
+        case 0x02:
+        case 0x03:
+            {
+                int internal_address = (address - 0x2000) % 8;
+                return ppu_register_read(internal_address);
+            }
+            break;
+        case 0x04:
+        case 0x05:
+        case 0x06:
+        case 0x07:
+            // TODO manage input and APU
+            break;
+        default:
+            return nes_cpu_memory.prg_rom[address - 0x8000];
+    }
+    return 0;
+}
+
+unsigned short nes_cpu_read16(mos6502_t *cpu, unsigned short address)
+{
+    unsigned short low_byte = cpu->read8(cpu, address);
+    unsigned short high_byte = cpu->read8(cpu, address + 1);
+    // invert (little endian)
+    return (high_byte << 8 | low_byte);
+}
+
+void nes_cpu_write8(mos6502_t *cpu, unsigned short address, unsigned char value)
+{
+    unsigned char *ptr = cpu->data;
+    ptr[address] = value;
+}
+
+void nes_cpu_write16(mos6502_t *cpu, unsigned short address, unsigned short value)
+{
+    unsigned char low_byte = value & 0x00ff;
+    unsigned char high_byte = value >> 8;
+    cpu->write8(cpu, address, low_byte);
+    cpu->write8(cpu, address + 1, high_byte);
+}
+
+void nes_add_cpu_mapping(mos6502_t *cpu, void *buffer)
+{
+    cpu->data = buffer;
+    cpu->read8 = nes_cpu_read8;
+    cpu->write8 = nes_cpu_write8;
+    cpu->read16 = nes_cpu_read16;
+    cpu->write16 = nes_cpu_write16;
+}
+
+
 static void usage()
 {
     fprintf(stdout, "nes <rom>\n");
@@ -87,7 +160,7 @@ int main(int argc, char *argv[])
 
     mos6502_t cpu;
     mos6502_init(&cpu);
-    mos6502_add_test_full_mapping(&cpu, rom);
+    nes_add_cpu_mapping(&cpu, rom);
 
     cpu.sp = 0xFF;
     // TODO get it from vector table

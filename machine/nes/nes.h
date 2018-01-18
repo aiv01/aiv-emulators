@@ -6,3 +6,5 @@
 #include <SDL.h>
 
 int ppu_tick(SDL_Renderer *);
+void ppu_register_write(unsigned short, unsigned char);
+unsigned char ppu_register_read(unsigned short);

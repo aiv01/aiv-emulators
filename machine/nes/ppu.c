@@ -41,3 +41,13 @@ int ppu_tick(SDL_Renderer *renderer)
 
 	return 0;
 }
+
+void ppu_register_write(unsigned short address, unsigned char value)
+{
+
+}
+
+unsigned char ppu_register_read(unsigned short address)
+{
+	return 0;
+}
