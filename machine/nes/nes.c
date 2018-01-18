@@ -51,8 +51,34 @@ unsigned short nes_cpu_read16(mos6502_t *cpu, unsigned short address)
 
 void nes_cpu_write8(mos6502_t *cpu, unsigned short address, unsigned char value)
 {
-    unsigned char *ptr = cpu->data;
-    ptr[address] = value;
+    unsigned char high_byte_page = (unsigned char )(address & 0xf000);
+    high_byte_page >>= 4;
+
+    switch(high_byte_page)
+    {
+        case 0x00:
+        case 0x01:
+            {
+                int internal_address = address % 2048;
+                nes_cpu_memory.ram[internal_address] = value;
+            }
+            break;
+        case 0x02:
+        case 0x03:
+            {
+                int internal_address = (address - 0x2000) % 8;
+                ppu_register_write(internal_address, value);
+            }
+            break;
+        case 0x04:
+        case 0x05:
+        case 0x06:
+        case 0x07:
+            // TODO manage input and APU
+            break;
+        default:
+            nes_cpu_memory.prg_rom[address - 0x8000] = value;
+    }
 }
 
 void nes_cpu_write16(mos6502_t *cpu, unsigned short address, unsigned short value)
