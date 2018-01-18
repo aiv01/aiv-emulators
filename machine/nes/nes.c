@@ -101,13 +101,13 @@ int main(int argc, char *argv[])
     while(!ended)
     {
     	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
+	    while (SDL_PollEvent(&event))
+	    {
         	if (event.type == SDL_QUIT) {
 			ended = 1;
             		break;
         	}
-	}
+	    }
 
 	ppu_tick(renderer);
 	ppu_ticks++;
