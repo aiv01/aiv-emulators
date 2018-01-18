@@ -1,9 +1,4 @@
-#include <mos6502.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#define SDL_MAIN_HANDLED 1
-#include <SDL.h>
+#include <nes.h>
 
 static void usage()
 {
@@ -73,28 +68,66 @@ int main(int argc, char *argv[])
 
     if (SDL_Init(SDL_INIT_VIDEO))
     {
+        fprintf(stderr, "unable to initialize SDL\n");
         goto end;
     }
 
-    SDL_Window *window = SDL_CreateWindow("Nes",
-            SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED,
-            256,
-            240,
-            0);
+    SDL_Window *window;
+    SDL_Renderer *renderer;
 
-    if (!window)
+    if (SDL_CreateWindowAndRenderer(256, 240, 0, &window, &renderer))
     {
-        SDL_Quit();
-	goto end;
+            fprintf(stderr, "unable to create window and renderer\n");
+	    SDL_Quit();
+	    goto end;
     }
+
+    SDL_SetWindowTitle(window, "AIV Nes");
+
 
     mos6502_t cpu;
     mos6502_init(&cpu);
 
     cpu.sp = 0xFF;
-    // get it from vector table
+    // TODO get it from vector table
     cpu.pc = 0;
+
+    int ended = 0;
+
+    int ppu_ticks = 0;
+    int cpu_accumulated_ticks = 0;
+
+    while(!ended)
+    {
+    	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+        	if (event.type == SDL_QUIT) {
+			ended = 1;
+            		break;
+        	}
+	}
+
+	ppu_tick(renderer);
+	ppu_ticks++;
+
+	if (ppu_ticks >= 3)
+	{
+		if (cpu_accumulated_ticks <= 0)
+		{
+			cpu_accumulated_ticks = mos6502_tick(&cpu);
+			if (cpu_accumulated_ticks <= 0)
+			{
+				break;
+			}
+		}
+		// always decrease one accumulated tick
+		cpu_accumulated_ticks--;
+		ppu_ticks = 0;
+	}
+
+        SDL_RenderPresent(renderer);
+    }
 
     ret = 0;
 
