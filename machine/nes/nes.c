@@ -87,6 +87,7 @@ int main(int argc, char *argv[])
 
     mos6502_t cpu;
     mos6502_init(&cpu);
+    mos6502_add_test_full_mapping(&cpu, rom);
 
     cpu.sp = 0xFF;
     // TODO get it from vector table
@@ -120,6 +121,14 @@ int main(int argc, char *argv[])
 			{
 				break;
 			}
+        fprintf(stdout, "[$%04X] A=$%02X X=$%02X Y=$%02X Flags=$%02X SP=$%02X\n",
+            cpu.pc,
+            cpu.a,
+            cpu.x,
+            cpu.y,
+            cpu.flags,
+            cpu.sp
+        );
 		}
 		// always decrease one accumulated tick
 		cpu_accumulated_ticks--;
